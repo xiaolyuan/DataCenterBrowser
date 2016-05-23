@@ -42,6 +42,8 @@ public class ExtData extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nodeid = request.getParameter("nodeid");
 		
+		nodeid = Util.byte2str(nodeid);
+		
 		DataItemService dataItemService = new DataItemService();
 		
 		HashMap<String, Object> result = dataItemService.getDataItem(nodeid);

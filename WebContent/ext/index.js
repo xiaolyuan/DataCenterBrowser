@@ -11,12 +11,15 @@ function initwelcome(){
 	$("#welcome-panel").empty();
 
 	//vid = decodeURIComponent(vid);
-	//vid = stringToBytes(vid);
+	
 //	vid = vid.split("_")[0];
+	
+	var nodeid = getUrlParam("nodeid");
+	nodeid = stringToBytes(nodeid);
 	
 	var data;
 	
-	$.getJSON("/DataCenterBrowser/ExtData", function(data1){
+	$.getJSON("/DataCenterBrowser/ExtData?nodeid=" + nodeid, function(data1){
 		data = data1;
 	});
 

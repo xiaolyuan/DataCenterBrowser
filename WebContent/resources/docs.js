@@ -2,6 +2,33 @@ Ext.BLANK_IMAGE_URL = 'resources/s.gif';
 
 Docs = {};
 
+Local = function(){
+	Ext.MessageBox.show({
+	    title: '加载窗口',
+	    msg: '详细信息内容',
+	    progressText: '加载中...',
+	    width: 300,
+	    progress: true,
+	    closable: false,
+	});
+	//加载环境
+	var f = function (v) {
+	    return function () {
+	        if (v == 12) {
+	            Ext.MessageBox.hide();
+	           // Ext.Msg.alert("提示", "加载完毕！");   
+	        } else {
+	            var i = v / 11;
+	            Ext.MessageBox.updateProgress(i, Math.round(100 * i) + '% 完成');
+	        }
+	    };
+	};
+	for (var i = 1; i < 13; i++) {
+
+	    setTimeout(f(i), i * 200);
+	};
+	}
+
 ApiPanel = function() {
     ApiPanel.superclass.constructor.call(this, {
         id:'api-tree',
@@ -254,16 +281,38 @@ MainPanel = function(){
             autoScroll: true,
             items : addPanel(),
         },
-        tbar:[
-              Ext.MessageBox.prompt("搜索","请输入",function(e,text){
-            	  if(e=="ok"){
-            		  alert(text);
-            	  }else{
-            		  Ext.MessageBox.alert(e);
-            	  }
-              })
-             ]
-    });
+        tbar:[ 
+//new Ext.Toolbar.Button({text:"搜索",handler:function(){	
+//	  Ext.MessageBox.prompt("搜索","请输入",function(e,text){
+//  	  if(e=="ok"){
+//  		  Ext.Msg.alert("提示", "你要查询的是:"+text);
+//  	  }    		 
+//    });
+//}}),
+new Ext.Toolbar( [ {// 创建GridPanel的工具栏组件  
+  id:'test',
+  xtype: 'textfield',
+  //handler : '', 
+}, {  
+	text : '搜索',  
+	icon:Ext.MessageBox.QUESTION,
+  handler :function(e){ 	        	
+  	var text=Ext.getCmp('test').getValue();
+  	if(text==null || text==""){
+  		Ext.Msg.alert("提示","请输入你要查询的数据~!");
+  	}else{
+  	Ext.Msg.alert("提示","你要查询的是:"+text);
+  }  
+} }
+//, '-','查询：',' ', new Ext.ux.form.SearchField({  
+// // store : userStore,  
+//  width : 110  
+//})  
+
+]),
+],	  
+
+});
 };
 
 Ext.extend(MainPanel, Ext.TabPanel, {

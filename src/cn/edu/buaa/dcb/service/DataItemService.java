@@ -11,7 +11,9 @@ import cn.edu.buaa.dcb.model.BaseData;
 import cn.edu.buaa.dcb.model.BaseData.TextDataItem;
 import cn.edu.buaa.dcb.model.BaseDataItem;
 import cn.edu.buaa.dcb.model.DataItem;
+import cn.edu.buaa.dcb.model.BaseData.D3DataItem;
 import cn.edu.buaa.dcb.model.BaseData.FloatDataItem;
+import cn.edu.buaa.dcb.model.BaseData.ImageDataItem;
 
 public class DataItemService {
 	
@@ -70,6 +72,18 @@ public class DataItemService {
 				textDataItem.text = strings;
 				DataItem dataItem = new DataItem(baseDataItem.text, String.valueOf(baseDataItem.id), "", textDataItem);
 				dataItems.add(dataItem);
+			}else if(baseDataItem.attributes.equals("图片")){
+				
+				ImageDataItem imageDataItem=BaseData.getInstanceBaseData().new ImageDataItem();
+				List<String> strings =new ArrayList<String>(); 
+				strings.add(baseDataItem.data_value);
+				imageDataItem.urls=strings;
+				DataItem dataItem=new DataItem(baseDataItem.text, String.valueOf(baseDataItem.id), "", imageDataItem);
+			     dataItems.add(dataItem);		
+			}else if(baseDataItem.attributes.equals("三维模型")){
+				D3DataItem d3DataItem=BaseData.getInstanceBaseData().new D3DataItem();
+				DataItem dataitem=new DataItem(baseDataItem.text, String.valueOf(baseDataItem.id),"",d3DataItem);
+				dataItems.add(dataitem);
 			}
 			if (baseDataItem.children.length > 0){
 				generateDataItem(dataItems, baseDataItem.children);

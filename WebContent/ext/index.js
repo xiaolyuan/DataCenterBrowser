@@ -29,7 +29,8 @@ function initwelcome(){
 		alert("没有数据");
 		return html;
 	}
-		
+		//加载
+	 Local();
 	Docs.classData.children = data.TreeNode;
 	
 	html = "<div xmlns:ext='http://www.extjs.com' class='body-wrap'>" 

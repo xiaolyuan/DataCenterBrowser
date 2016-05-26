@@ -143,7 +143,12 @@ function ExtDataItemProc(dataItem)
 				+ " ";
 	    	break; 
 	    case "ImageDataItem":
-	    	//html += ImageDataItemProc(dataItem.id, dataItem.data);
+	    	html += 
+	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"	
+	    	+"<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
+			+ dataItem.title
+			+ " : ";
+	    	html += ImageDataItemProc(dataItem.id, dataItem.data);
 	    	break;
 	    case "FileDataItem":
 	    	//html += FileDataItemProc(dataItem.id, dataItem.data);
@@ -174,7 +179,12 @@ function ExtDataItemProc(dataItem)
 	    	//html += CurveDataItemProc(dataItem.id, dataItem.data);
 	    	break;
 	    case "D3DataItem":
-	    	//html += D3DataItemProc(dataItem.id, dataItem.data);
+	    	html += 
+	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"
+	    		+ "<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
+				+ dataItem.title
+				+ " : ";
+	    	html += D3DataItemProc(dataItem.id, dataItem.data);
 	    	break;
 	    case "TableDataItem":
 	    	
@@ -292,6 +302,13 @@ function TextDataItemProc(id, data, remark){
   	return html;
 }
 
+function ImageDataItemProc(id,data){
+	var html = "<div style='text-align: center;'>"
+		+ "<embed src=\"\DataItem?arg=file&file="+data.urls+"\" width=\"80%\" height=\"20\" "
+		+" type=\"application/x-cortona\"   pluginspage=\"http://www.cortona3d.com/cortona\"   vrml_splashscreen=\"false\" "
+		+" vrml_dashboard=\"false\"   vrml_background_color=\"#f7f7f9\"   contextmenu=\"false\" ></div>"
+  	return html;
+}
 function FloatDataItemProc(id, data, remark){
 	var html = "";
 	var remarkHtml = "";
@@ -303,7 +320,7 @@ function FloatDataItemProc(id, data, remark){
 
 function D3DataItemProc(id, data){
 	var html = "<div style='text-align: center;'>"
-		+ "<embed src=\"\DataItem?arg=file&file="+data.link+"\" width=\"80%\" height=\"400\" "
+		+ "<embed src=\"\DataItem?arg=file&file="+data.link+"\" width=\"80%\" height=\"20\" "
 		+" type=\"application/x-cortona\"   pluginspage=\"http://www.cortona3d.com/cortona\"   vrml_splashscreen=\"false\" "
 		+" vrml_dashboard=\"false\"   vrml_background_color=\"#f7f7f9\"   contextmenu=\"false\" ></div>"
   	return html;

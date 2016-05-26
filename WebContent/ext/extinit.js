@@ -291,7 +291,7 @@ function FileDataItemProc(id, data){
 }
 
 function TextDataItemProc(id, data, remark){
-	var html = "";
+	var html = "<span><a href='ima/File.html'>文本</a></span>";
 	var remarkHtml = "";
 	if (remark != null && remark != "")
 		remarkHtml = "&nbsp&nbsp&nbsp&nbsp(备注：" + remark +  ")";
@@ -303,11 +303,12 @@ function TextDataItemProc(id, data, remark){
 }
 
 function ImageDataItemProc(id,data){
-	var html = "<div style='text-align: center;'>"
-		+ "<embed src=\"\DataItem?arg=file&file="+data.urls+"\" width=\"80%\" height=\"20\" "
-		+" type=\"application/x-cortona\"   pluginspage=\"http://www.cortona3d.com/cortona\"   vrml_splashscreen=\"false\" "
-		+" vrml_dashboard=\"false\"   vrml_background_color=\"#f7f7f9\"   contextmenu=\"false\" ></div>"
-  	return html;
+	var html="<span><a href='ima/timg[1].jpg'>图片</a></span>";
+//	var html = "<div style='text-align: center;'>"
+//		+ "<embed src=\"\DataItem?arg=file&file="+data.urls+"\" width=\"80%\" height=\"20\" "
+//		+" type=\"application/x-cortona\"   pluginspage=\"http://www.cortona3d.com/cortona\"   vrml_splashscreen=\"false\" "
+//		+" vrml_dashboard=\"false\"   vrml_background_color=\"#f7f7f9\"   contextmenu=\"false\" ></div>"
+ 	return html;
 }
 function FloatDataItemProc(id, data, remark){
 	var html = "";
@@ -317,12 +318,13 @@ function FloatDataItemProc(id, data, remark){
 	html = "<span class=\"float\"><span>"+data.value+"</span>"+data.unit+"</span>" + remarkHtml;
   	return html;
 }
-
 function D3DataItemProc(id, data){
-	var html = "<div style='text-align: center;'>"
-		+ "<embed src=\"\DataItem?arg=file&file="+data.link+"\" width=\"80%\" height=\"20\" "
-		+" type=\"application/x-cortona\"   pluginspage=\"http://www.cortona3d.com/cortona\"   vrml_splashscreen=\"false\" "
-		+" vrml_dashboard=\"false\"   vrml_background_color=\"#f7f7f9\"   contextmenu=\"false\" ></div>"
+	
+	var html="<span><a href='#'>三维模型</a></span>";
+//	var html = "<div style='text-align: center;'>"
+//		+ "<embed src=\"\DataItem?arg=file&file="+data.link+"\" width=\"80%\" height=\"20\" "
+//		+" type=\"application/x-cortona\"   pluginspage=\"http://www.cortona3d.com/cortona\"   vrml_splashscreen=\"false\" "
+//		+" vrml_dashboard=\"false\"   vrml_background_color=\"#f7f7f9\"   contextmenu=\"false\" ></div>"
   	return html;
 }
 

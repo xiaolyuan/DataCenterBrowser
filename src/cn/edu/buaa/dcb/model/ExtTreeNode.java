@@ -13,8 +13,10 @@ public class ExtTreeNode {
 	 public boolean leaf;
 	 public boolean singleClickExpand;
 	 
-	 public ExtTreeNode(String id, String text) {
+	 public ExtTreeNode(String id, String text,String iconCls,String cls) {
 		this.id = id;
+		this.iconCls=iconCls;
+		this.cls=cls;
 		this.text = text;
 		singleClickExpand = true;
 		leaf = true;
@@ -24,6 +26,6 @@ public class ExtTreeNode {
 		 if (children == null)
 			 children = new ArrayList<>();
 		 children.add(extTreeNoede);
-		 leaf = false;
+		 leaf = true;
 	 }
 }

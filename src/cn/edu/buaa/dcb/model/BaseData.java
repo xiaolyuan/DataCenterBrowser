@@ -62,6 +62,10 @@ public class BaseData {
 	public class TableDataItem extends BaseData{
 		public String value;
 	}
+	//富文本
+	public class RichTextDataItem extends BaseData{
+		public String Text;
+	}
 }
 
 

@@ -30,7 +30,7 @@ function initwelcome(){
 		return html;
 	}
 		//加载
-	 Local();
+	 // Local();
 	Docs.classData.children = data.TreeNode;
 	
 	html = "<div xmlns:ext='http://www.extjs.com' class='body-wrap'>" 

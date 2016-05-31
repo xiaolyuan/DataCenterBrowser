@@ -186,6 +186,14 @@ function ExtDataItemProc(dataItem)
 				+ " : ";
 	    	html += D3DataItemProc(dataItem.id, dataItem.data);
 	    	break;
+	    case "RichTextDataItem":
+	    	html += 
+	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"
+	    		+ "<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
+				+ dataItem.title
+				+ " : ";
+	    	html +=RichTextDataItemProc(dataItem.id,dataItem.data);
+	    	break;
 	    case "TableDataItem":
 	    	
 	    	html += 
@@ -316,18 +324,22 @@ function FloatDataItemProc(id, data, remark){
 	if (remark != null && remark != "")
 		remarkHtml = "&nbsp&nbsp&nbsp&nbsp(备注：" + remark +  ")";
 	html = "<span class=\"float\"><span>"+data.value+"</span>"+data.unit+"</span>" + remarkHtml;
-  	return html;
+	return html;
 }
 function D3DataItemProc(id, data){
 	
-	var html="<span><a href='#'>三维模型</a></span>";
+	var html="<span><a href='ima/10681608_155715005320_2[1].jpg'>三维模型</a></span>";
 //	var html = "<div style='text-align: center;'>"
 //		+ "<embed src=\"\DataItem?arg=file&file="+data.link+"\" width=\"80%\" height=\"20\" "
 //		+" type=\"application/x-cortona\"   pluginspage=\"http://www.cortona3d.com/cortona\"   vrml_splashscreen=\"false\" "
 //		+" vrml_dashboard=\"false\"   vrml_background_color=\"#f7f7f9\"   contextmenu=\"false\" ></div>"
   	return html;
 }
-
+function RichTextDataItemProc(id,data){
+	var html="";
+	html = "<span>"+data.Text+"</span>"
+	return html;
+}
 function TableDataItemProc(id, data){
 	data = $.parseJSON(data.value)
 	var tableid = id + "_table";

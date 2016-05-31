@@ -14,6 +14,7 @@ import cn.edu.buaa.dcb.model.DataItem;
 import cn.edu.buaa.dcb.model.BaseData.D3DataItem;
 import cn.edu.buaa.dcb.model.BaseData.FloatDataItem;
 import cn.edu.buaa.dcb.model.BaseData.ImageDataItem;
+import cn.edu.buaa.dcb.model.BaseData.RichTextDataItem;
 
 public class DataItemService {
 	
@@ -83,6 +84,12 @@ public class DataItemService {
 			}else if(baseDataItem.attributes.equals("三维模型")){
 				D3DataItem d3DataItem=BaseData.getInstanceBaseData().new D3DataItem();
 				DataItem dataitem=new DataItem(baseDataItem.text, String.valueOf(baseDataItem.id),"",d3DataItem);
+				dataItems.add(dataitem);
+			}else if(baseDataItem.attributes.equals("富文本")){
+				RichTextDataItem richTextDataItem=BaseData.getInstanceBaseData().new RichTextDataItem();
+				//richTextDataItem.Text=baseDataItem.data_value;
+				richTextDataItem.Text=baseDataItem.value_hidden;
+				DataItem dataitem=new DataItem(baseDataItem.text, String.valueOf(baseDataItem.id), "", richTextDataItem);
 				dataItems.add(dataitem);
 			}
 			if (baseDataItem.children.length > 0){

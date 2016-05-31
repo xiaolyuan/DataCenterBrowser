@@ -1,7 +1,7 @@
 function addPanel(){
 	var p2 = new Ext.Panel({
 		id : 'docs-data',
-        title: "数据列表",
+        title: "数据列表11",
         html : initwelcome(),
         autoScroll: true
 	});

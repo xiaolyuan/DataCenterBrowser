@@ -8,5 +8,6 @@ public class BaseDataItem {
 	public boolean isLeaf;
 	public String data_value;
 	public String iconCls;
+	public String value_hidden;
 	public BaseDataItem[] children;
 }

@@ -2,33 +2,9 @@ Ext.BLANK_IMAGE_URL = 'resources/s.gif';
 
 Docs = {};
 
-Local = function(){
-	Ext.MessageBox.show({
-	    title: '加载窗口',
-	    msg: '详细信息内容',
-	    progressText: '加载中...',
-	    width: 300,
-	    progress: true,
-	    closable: false,
-	});
-	//加载环境
-	var f = function (v) {
-	    return function () {
-	        if (v == 12) {
-	            Ext.MessageBox.hide();
-	           // Ext.Msg.alert("提示", "加载完毕！");   
-	        } else {
-	            var i = v / 11;
-	            Ext.MessageBox.updateProgress(i, Math.round(100 * i) + '% 完成');
-	        }
-	    };
-	};
-	for (var i = 1; i < 13; i++) {
-
-	    setTimeout(f(i), i * 200);
-	};
-	}
-
+//treePanel.on('click',function(n){
+//	n.getUI().getIconEl().src='resources/example.gif';
+//});
 ApiPanel = function() {
     ApiPanel.superclass.constructor.call(this, {
         id:'api-tree',
@@ -55,15 +31,28 @@ ApiPanel = function() {
             text:'Ext JS',
             id:'root',
             expanded:true,
-            children:[Docs.classData]
+            leaf:true,
+            
+           children:[Docs.classData]
+
          }),
         collapseFirst:false
     });
     // no longer needed!
     //new Ext.tree.TreeSorter(this, {folderSort:true,leafAttr:'isClass'});
-
-    this.getSelectionModel().on('beforeselect', function(sm, node){
+    //beforeexpandnode      beforeselect   AfterSelect
+    this.getSelectionModel().on('beforeselect', function(sm,node){
+//    	 if(node.childNodes.length+1>0){//展开节点时，更改父节点图标样式  
+//         node.getUI().getIconEl().src="resources/s.gif";  
+//    }    
+    	     var pNode = node.parentNode;
+    	   for (var i = 0, len = node.childNodes.length; i < len; i++) {  
+	             var curChild = node.childNodes[i]; 
+	     curChild.getUI().getIconEl().src ="resources/collapse-all.gif";  
+	     }  
+    	//node.getUI().getIconEl().src = 'resources/collapse-all.gif';
         return node.isLeaf();
+          
     });
 };
 
@@ -292,9 +281,10 @@ MainPanel = function(){
 new Ext.Toolbar( [ {// 创建GridPanel的工具栏组件  
   id:'test',
   xtype: 'textfield',
+  emptyText:'请输入你要搜索的内容',
   //handler : '', 
 }, {  
-	text : '搜索',  
+	text : '搜索', 
 	icon:Ext.MessageBox.QUESTION,
   handler :function(e){ 	        	
   	var text=Ext.getCmp('test').getValue();
@@ -344,7 +334,7 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 
     //点击后加载
     loadClass : function(href, cls, member){
-        var id = 'docs-' + cls;
+     var id = 'docs-' + cls;
         var tab = this.getComponent(id);
         if(tab){
             this.setActiveTab(tab);
@@ -461,7 +451,7 @@ Ext.onReady(function(){
             handler: function(){ api.root.expand(true); },
             scope: this
         }, '-', {
-            iconCls: 'icon-collapse-all',
+           iconCls: 'icon-collapse-all',
             tooltip: 'Collapse All',
             handler: function(){ api.root.collapse(true); },
             scope: this
@@ -732,3 +722,30 @@ Ext.Ajax.on('requestcomplete', function(ajax, xhr, o){
         urchinTracker(o.url);
     }
 });
+Local = function(){
+	Ext.MessageBox.show({
+	    title: '加载窗口',
+	    msg: '详细信息内容',
+	    progressText: '加载中...',
+	    width: 300,
+	    progress: true,
+	    closable: false,
+	});
+	//加载环境
+	var f = function (v) {
+	    return function () {
+	        if (v == 12) {
+	            Ext.MessageBox.hide();
+	           // Ext.Msg.alert("提示", "加载完毕！");   
+	        } else {
+	            var i = v / 11;
+	            Ext.MessageBox.updateProgress(i, Math.round(100 * i) + '% 完成');
+	        }
+	    };
+	};
+	for (var i = 1; i < 13; i++) {
+
+	    setTimeout(f(i), i * 200);
+	};
+	}
+

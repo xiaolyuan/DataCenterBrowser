@@ -22,10 +22,17 @@ public class ExtTreeNode {
 		leaf = true;
 	 }
 	 
+	 public ExtTreeNode(String id, String text) {
+			this.id = id;
+			this.text = text;
+			singleClickExpand = true;
+			leaf = true;
+		 }
+	 
 	 public void Add(ExtTreeNode extTreeNoede){
 		 if (children == null)
 			 children = new ArrayList<>();
 		 children.add(extTreeNoede);
-		 leaf = true;
+		 leaf = false;
 	 }
 }

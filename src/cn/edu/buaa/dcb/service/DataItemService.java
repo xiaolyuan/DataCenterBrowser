@@ -15,6 +15,7 @@ import cn.edu.buaa.dcb.model.BaseData.D3DataItem;
 import cn.edu.buaa.dcb.model.BaseData.FloatDataItem;
 import cn.edu.buaa.dcb.model.BaseData.ImageDataItem;
 import cn.edu.buaa.dcb.model.BaseData.RichTextDataItem;
+import cn.edu.buaa.dcb.model.ExtTreeNode;
 
 public class DataItemService {
 	
@@ -42,8 +43,12 @@ public class DataItemService {
 		
 		generateDataItem(dataItems, baseDataItems);
 		
+		
+		List<ExtTreeNode> extTreeNodes = generateExtTreeNode(baseDataItems);
+		
+		
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		result.put("TreeNode", baseDataItems);
+		result.put("TreeNode", extTreeNodes);
 		result.put("DataItem", dataItems);
 		
 		return result;
@@ -92,9 +97,28 @@ public class DataItemService {
 				DataItem dataitem=new DataItem(baseDataItem.text, String.valueOf(baseDataItem.id), "", richTextDataItem);
 				dataItems.add(dataitem);
 			}
-			if (baseDataItem.children.length > 0){
-				generateDataItem(dataItems, baseDataItem.children);
+			if (baseDataItem.children.size() > 0){
+				BaseDataItem[] temp = new BaseDataItem[baseDataItem.children.size()];
+				generateDataItem(dataItems, baseDataItem.children.toArray(temp));
 			}
 		}
 	}
+	
+	private List<ExtTreeNode> generateExtTreeNode(BaseDataItem[] baseDataItems){
+		List<ExtTreeNode> extTreeNodes = new ArrayList<ExtTreeNode>();
+		
+		for (BaseDataItem baseDataItem : baseDataItems) {
+			ExtTreeNode extTreeNode = new ExtTreeNode(String.valueOf(baseDataItem.id), baseDataItem.text);
+			if (baseDataItem.children.size() > 0){
+				BaseDataItem[] temp = new BaseDataItem[baseDataItem.children.size()];
+				List<ExtTreeNode> tempNodes =  generateExtTreeNode(baseDataItem.children.toArray(temp));
+				for (ExtTreeNode extTreeNode2 : tempNodes) {
+					extTreeNode.Add(extTreeNode2);
+				}
+			}
+			extTreeNodes.add(extTreeNode);
+		}
+		return extTreeNodes;
+	}
+	
 }

@@ -3,16 +3,26 @@ package cn.edu.buaa.dcb.model;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ExtTreeNode {
 	 public String id;
 	 public String iconCls;
 	 public String cls;
 	 public String text;
+	 public A_attr a_attr;
 
 	 public List<ExtTreeNode> children;
 	 public boolean leaf;
 	 public boolean singleClickExpand;
 	 
+	 public class A_attr{
+			public String href;
+			
+			public A_attr(String href){
+				this.href = href;
+			}
+		
+}
 	 public ExtTreeNode(String id, String text,String iconCls,String cls) {
 		this.id = id;
 		this.iconCls=iconCls;
@@ -20,6 +30,7 @@ public class ExtTreeNode {
 		this.text = text;
 		singleClickExpand = true;
 		leaf = true;
+		this.a_attr = this.new A_attr("#" + this.id + "_target");
 	 }
 	 
 	 public ExtTreeNode(String id, String text) {
@@ -35,4 +46,5 @@ public class ExtTreeNode {
 		 children.add(extTreeNoede);
 		 leaf = false;
 	 }
-}
+
+	 }

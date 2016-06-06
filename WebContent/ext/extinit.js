@@ -142,6 +142,7 @@ function ExtDataItemProc(dataItem)
 	    		+ getParents(dataItem.parents) + dataItem.title
 				+ " ";
 	    	break; 
+	    	//图片
 	    case "ImageDataItem":
 	    	html += 
 	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"	
@@ -150,9 +151,16 @@ function ExtDataItemProc(dataItem)
 			+ " : ";
 	    	html += ImageDataItemProc(dataItem.id, dataItem.data);
 	    	break;
+	    	//附件
 	    case "FileDataItem":
+	    	html += 
+	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"	
+	    	+"<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
+			+ dataItem.title
+			+ " : ";
 	    	//html += FileDataItemProc(dataItem.id, dataItem.data);
 	    	break;
+	    	//文本
 	    case "TextDataItem":
 	    	html += 
 	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"	
@@ -161,6 +169,7 @@ function ExtDataItemProc(dataItem)
 			+ " : ";
 	    	html += TextDataItemProc(dataItem.id, dataItem.data, dataItem.remark);
 	    	break;
+	    	//浮点数
 	    case "FloatDataItem":
 	    	html +=
 	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"
@@ -172,40 +181,60 @@ function ExtDataItemProc(dataItem)
 	    case "RadioDataItem":
 	    	//html += RadioDataItemProc(dataItem.id, dataItem.data);
 	    	break;
-	    case "UrlDataItem":
-	    	//html += UrlDataItemProc(dataItem.id, dataItem.data);
-	    	break;
-	    case "CurveDataItem":
-	    	//html += CurveDataItemProc(dataItem.id, dataItem.data);
-	    	break;
-	    case "D3DataItem":
+	    	//视频
+	    case "RideoDataItem":
 	    	html += 
 	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"
 	    		+ "<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
 				+ dataItem.title
 				+ " : ";
+	    	//html +=RideoDataItemProc(dataItem.id,dataItem.data);
+	    	break;
+	    	//链接
+	    case "UrlDataItem":
+	    	html += 
+	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"
+	    		+ "<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
+				+ dataItem.title
+				+ " : ";
+	    	html += UrlDataItemProc(dataItem.id, dataItem.data);
+	    	break;
+	    	//曲线
+	    case "CurveDataItem":
+	    	//html += CurveDataItemProc(dataItem.id, dataItem.data);
+	    	break;
+	    	//三维模型
+	    case "D3DataItem":
+	    	html += 
+	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"
+	    		+ "<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
+				+ dataItem.title
+				+ " : ";  	
 	    	html += D3DataItemProc(dataItem.id, dataItem.data);
 	    	break;
+	    	//富文本
 	    case "RichTextDataItem":
 	    	html += 
 	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"
 	    		+ "<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
 				+ dataItem.title
 				+ " : ";
-	    	html +=RichTextDataItemProc(dataItem.id,dataItem.data);
-	    	break;
-	    case "TableDataItem":
 	    	
+	    	 html +=RichTextDataItemProc(dataItem.id,dataItem.data); 
+	    	//html +=RichTextDataItemProc(dataItem.id,dataItem.data);
+	    	break;
+	    	//二维表
+	    case "TableDataItem":
 	    	html += 
 	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"
 	    		+ "<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
 				+ dataItem.title
 				+ " : ";
-	    	if (dataItem.remark != null && dataItem.remark != "")
-	    		html += "&nbsp&nbsp&nbsp&nbsp(备注："+ dataItem.remark +")"; 
-	    	html += "<div class=\"mdesc\">";
-	    	html += TableDataItemProc(dataItem.id, dataItem.data);
-	    	html += "</div>";
+//	    	if (dataItem.remark != null && dataItem.remark != "")
+//	    		html += "&nbsp&nbsp&nbsp&nbsp(备注："+ dataItem.remark +")"; 
+//	    	html += "<div class=\"mdesc\">";
+//	    	//\\html += TableDataItemProc(dataItem.id, dataItem.data);
+//	    	html += "</div>";
 	    	break;	
 	    default:
 	    	break;
@@ -213,7 +242,6 @@ function ExtDataItemProc(dataItem)
 	html += "</td></tr>";
 	return html;
 }
-
 function getTitle(id, title){
 	return "<h1 id=\""+id+"\"><span>"+title+"</span></h1>";
 }
@@ -311,12 +339,24 @@ function TextDataItemProc(id, data, remark){
 }
 
 function ImageDataItemProc(id,data){
-	var html="<span><a href='ima/timg[1].jpg'>图片</a></span>";
-//	var html = "<div style='text-align: center;'>"
-//		+ "<embed src=\"\DataItem?arg=file&file="+data.urls+"\" width=\"80%\" height=\"20\" "
-//		+" type=\"application/x-cortona\"   pluginspage=\"http://www.cortona3d.com/cortona\"   vrml_splashscreen=\"false\" "
-//		+" vrml_dashboard=\"false\"   vrml_background_color=\"#f7f7f9\"   contextmenu=\"false\" ></div>"
- 	return html;
+// 	html="<div><span>"+data.urls+"</span></div>";
+//	return html;
+	if (data.flag == 1){
+		var html = "<div class='imgslides'>";
+		$.each(data.urls, function(idx, item){
+			html += "<img src=\"\DataItem?arg=file&file="+item+"\">";
+			
+		});
+	    return html;
+	}
+	else{
+		var html = "<div class='imgslides'>";
+		$.each(data.urls, function(idx, item){
+			html += "<img src=\""+item+"\">";
+		});
+	    return html;
+	}
+
 }
 function FloatDataItemProc(id, data, remark){
 	var html = "";
@@ -327,18 +367,29 @@ function FloatDataItemProc(id, data, remark){
 	return html;
 }
 function D3DataItemProc(id, data){
-	
-	var html="<span><a href='ima/10681608_155715005320_2[1].jpg'>三维模型</a></span>";
+	var html="";
+	 html="<span><a href='ima/10681608_155715005320_2[1].jpg'>三维模型</a></span>";
 //	var html = "<div style='text-align: center;'>"
-//		+ "<embed src=\"\DataItem?arg=file&file="+data.link+"\" width=\"80%\" height=\"20\" "
+//		+ "<embed src=\"\DataItem?arg=file&file="+data.link+"\" width=\"80%\" height=\"400\" "
 //		+" type=\"application/x-cortona\"   pluginspage=\"http://www.cortona3d.com/cortona\"   vrml_splashscreen=\"false\" "
 //		+" vrml_dashboard=\"false\"   vrml_background_color=\"#f7f7f9\"   contextmenu=\"false\" ></div>"
   	return html;
 }
 function RichTextDataItemProc(id,data){
 	var html="";
-	html = "<span>"+data.Text+"</span>"
+    html="<div class='sid' style='border:1px solid #BFD4DA;background-image:url(ima/9209405_150035420154_2[1].jpg)'>"
+    	+"<table><tr>"+data.Text
+    	+"</tr></table></div>";
+   
 	return html;
+}
+//链接
+function UrlDataItemProc(id, data){
+	var html = "<a href='http://www.baidu.com'>www.baidu.com</a>";
+//	$.each(data.links, function(idx, item){
+//		html += "<p><a>"+item+"</a></p>";
+//	});
+  	return html;
 }
 function TableDataItemProc(id, data){
 	data = $.parseJSON(data.value)

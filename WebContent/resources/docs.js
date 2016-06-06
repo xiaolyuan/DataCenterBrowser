@@ -2,9 +2,6 @@ Ext.BLANK_IMAGE_URL = 'resources/s.gif';
 
 Docs = {};
 
-//treePanel.on('click',function(n){
-//	n.getUI().getIconEl().src='resources/example.gif';
-//});
 ApiPanel = function() {
     ApiPanel.superclass.constructor.call(this, {
         id:'api-tree',
@@ -42,21 +39,30 @@ ApiPanel = function() {
     //new Ext.tree.TreeSorter(this, {folderSort:true,leafAttr:'isClass'});
     //beforeexpandnode      beforeselect   AfterSelect
     this.getSelectionModel().on('beforeselect', function(sm,node){
-//    	 if(node.childNodes.length+1>0){//展开节点时，更改父节点图标样式  
-//         node.getUI().getIconEl().src="resources/s.gif";  
-//    }    
-    	     var pNode = node.parentNode;
-    	   for (var i = 0, len = node.childNodes.length; i < len; i++) {  
-	             var curChild = node.childNodes[i]; 
-	     curChild.getUI().getIconEl().src ="resources/collapse-all.gif";  
-	     }  
-    	//node.getUI().getIconEl().src = 'resources/collapse-all.gif';
+////    	 if(node.childNodes.length+1>0){//展开节点时，更改父节点图标样式  
+////         node.getUI().getIconEl().src="resources/s.gif";  
+////    }    
+//    	     var pNode = node.parentNode;
+//    	   for (var i = 0, len = node.childNodes.length; i < len; i++) {  
+//	             var curChild = node.childNodes[i]; 
+//	     curChild.getUI().getIconEl().src ="resources/collapse-all.gif";  
+//	     }  
+//    	//node.getUI().getIconEl().src = 'resources/collapse-all.gif';
         return node.isLeaf();
           
     });
 };
 
 Ext.extend(ApiPanel, Ext.tree.TreePanel, {
+	//store:MainPanel.items.items[0].body,
+//	listeners:{
+//        click : function(node,e){
+//        	$.each(ApiPanel,function(){});
+//        	//Ext.Msg.alert(html);
+//                alert(node.text); 
+//        },
+//renderTo:Ext.getBody(),
+//},
     initComponent: function(){
         this.hiddenPkgs = [];
         Ext.apply(this, {
@@ -83,7 +89,7 @@ Ext.extend(ApiPanel, Ext.tree.TreePanel, {
 	                        fn: this.filterTree,
 	                        buffer: 350,
 	                        scope: this
-	                    },
+	                    },	             
 	                    scope: this
 					}
 				}), ' ', ' '
@@ -270,37 +276,30 @@ MainPanel = function(){
             autoScroll: true,
             items : addPanel(),
         },
-        tbar:[ 
-//new Ext.Toolbar.Button({text:"搜索",handler:function(){	
-//	  Ext.MessageBox.prompt("搜索","请输入",function(e,text){
-//  	  if(e=="ok"){
-//  		  Ext.Msg.alert("提示", "你要查询的是:"+text);
-//  	  }    		 
-//    });
-//}}),
-new Ext.Toolbar( [ {// 创建GridPanel的工具栏组件  
-  id:'test',
-  xtype: 'textfield',
-  emptyText:'请输入你要搜索的内容',
-  //handler : '', 
-}, {  
-	text : '搜索', 
-	icon:Ext.MessageBox.QUESTION,
-  handler :function(e){ 	        	
-  	var text=Ext.getCmp('test').getValue();
-  	if(text==null || text==""){
-  		Ext.Msg.alert("提示","请输入你要查询的数据~!");
-  	}else{
-  	Ext.Msg.alert("提示","你要查询的是:"+text);
-  }  
-} }
-//, '-','查询：',' ', new Ext.ux.form.SearchField({  
-// // store : userStore,  
-//  width : 110  
-//})  
-
-]),
-],	  
+//        tbar:[ 
+//new Ext.Toolbar( [ {// 创建GridPanel的工具栏组件  
+//  id:'test',
+//  xtype: 'textfield',
+//  emptyText:'请输入你要搜索的内容',
+//  //handler : '', 
+//}, {  
+//	text : '搜索', 
+//	icon:Ext.MessageBox.QUESTION,
+//  handler :function(e){ 	        	
+//  	var text=Ext.getCmp('test').getValue();
+//  	if(text==null || text==""){
+//  		Ext.Msg.alert("提示","请输入你要查询的数据~!");
+//  	}else{
+//  	Ext.Msg.alert("提示","你要查询的是:"+text);
+//  }  
+//} }
+////, '-','查询：',' ', new Ext.ux.form.SearchField({  
+//// // store : userStore,  
+////  width : 110  
+////})  
+//
+//]),
+//],	  
 
 });
 };
@@ -408,16 +407,19 @@ Ext.onReady(function(){
     var mainPanel = new MainPanel();
 
     api.on('click', function(node, e){
+    	alert(node.id);
     	var id = node.id;
     	id = 'docs-' + id + '_target';
-    	var body = mainPanel.items.items[0].body;
-    	var el = Ext.fly(id);
+    	var body = mainPanel.items.items[0].body;	
+    	 var el = Ext.fly(id);
+    	alert(el);
         if(el){
             var top = (el.getOffsetsTo(body)[1]) + body.dom.scrollTop;
+           // alert(top);
             //body.scrollTo('top', top-25, {duration:0.1, callback: this.hlMember.createDelegate(this, [member])});
             body.scrollTo('top', top-25, {duration:0.1});
             $("#" + id).css("background-color", "rgb(255, 255, 100)");
-            setTimeout(function() {return hideHightlight(id)}, 1500);
+           // setTimeout(function() {return hideHightlight(id)}, 1500);
             
         }
     });

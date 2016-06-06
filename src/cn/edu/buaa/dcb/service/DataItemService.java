@@ -9,12 +9,16 @@ import com.google.gson.Gson;
 import cn.edu.buaa.dcb.dataservice.HttpClientUtils;
 import cn.edu.buaa.dcb.model.BaseData;
 import cn.edu.buaa.dcb.model.BaseData.TextDataItem;
+import cn.edu.buaa.dcb.model.BaseData.UrlDataItem;
 import cn.edu.buaa.dcb.model.BaseDataItem;
 import cn.edu.buaa.dcb.model.DataItem;
 import cn.edu.buaa.dcb.model.BaseData.D3DataItem;
+import cn.edu.buaa.dcb.model.BaseData.FileDataItem;
 import cn.edu.buaa.dcb.model.BaseData.FloatDataItem;
 import cn.edu.buaa.dcb.model.BaseData.ImageDataItem;
 import cn.edu.buaa.dcb.model.BaseData.RichTextDataItem;
+import cn.edu.buaa.dcb.model.BaseData.RideoDataItem;
+import cn.edu.buaa.dcb.model.BaseData.TableDataItem;
 import cn.edu.buaa.dcb.model.ExtTreeNode;
 
 public class DataItemService {
@@ -78,23 +82,47 @@ public class DataItemService {
 				textDataItem.text = strings;
 				DataItem dataItem = new DataItem(baseDataItem.text, String.valueOf(baseDataItem.id), "", textDataItem);
 				dataItems.add(dataItem);
-			}else if(baseDataItem.attributes.equals("图片")){
-				
+			}else if(baseDataItem.attributes.equals("链接")){
+				UrlDataItem urlDataItem=BaseData.getInstanceBaseData().new UrlDataItem();
+				List<String> strings= new ArrayList<>();
+				strings.add(baseDataItem.data_value);
+				urlDataItem.links=strings;
+				DataItem dataItem=new DataItem(baseDataItem.text, String.valueOf(baseDataItem.id), "", urlDataItem);
+				dataItems.add(dataItem);
+			}else if(baseDataItem.attributes.equals("附件")){
+				FileDataItem fileDataItem=BaseData.getInstanceBaseData().new FileDataItem();
+				List<String> strings=new ArrayList<>();
+				strings.add(baseDataItem.data_value);
+				fileDataItem.filePaths=strings;
+				DataItem dataItem=new DataItem(baseDataItem.text, String.valueOf(baseDataItem.id), "", fileDataItem);
+				 dataItems.add(dataItem);
+			}
+			else if(baseDataItem.attributes.equals("图片")){
 				ImageDataItem imageDataItem=BaseData.getInstanceBaseData().new ImageDataItem();
 				List<String> strings =new ArrayList<String>(); 
-				strings.add(baseDataItem.data_value);
+				strings.add(baseDataItem.data_value);					
 				imageDataItem.urls=strings;
 				DataItem dataItem=new DataItem(baseDataItem.text, String.valueOf(baseDataItem.id), "", imageDataItem);
-			     dataItems.add(dataItem);		
+			    dataItems.add(dataItem);		
 			}else if(baseDataItem.attributes.equals("三维模型")){
 				D3DataItem d3DataItem=BaseData.getInstanceBaseData().new D3DataItem();
 				DataItem dataitem=new DataItem(baseDataItem.text, String.valueOf(baseDataItem.id),"",d3DataItem);
 				dataItems.add(dataitem);
-			}else if(baseDataItem.attributes.equals("富文本")){
+			}else if(baseDataItem.attributes.equals("视频")){
+				RideoDataItem rideoDataItem=BaseData.getInstanceBaseData().new RideoDataItem();
+				DataItem dataitem=new DataItem(baseDataItem.text, String.valueOf(baseDataItem.id),"",rideoDataItem);
+				dataItems.add(dataitem);
+			}
+			else if(baseDataItem.attributes.equals("富文本")){
 				RichTextDataItem richTextDataItem=BaseData.getInstanceBaseData().new RichTextDataItem();
 				//richTextDataItem.Text=baseDataItem.data_value;
 				richTextDataItem.Text=baseDataItem.value_hidden;
 				DataItem dataitem=new DataItem(baseDataItem.text, String.valueOf(baseDataItem.id), "", richTextDataItem);
+				dataItems.add(dataitem);
+			}else if(baseDataItem.attributes.equals("二维表")){
+				TableDataItem tableDataItem=BaseData.getInstanceBaseData().new TableDataItem();
+				tableDataItem.value=baseDataItem.data_value;
+				DataItem dataitem=new DataItem(baseDataItem.text, String.valueOf(baseDataItem.id), "", tableDataItem);
 				dataItems.add(dataitem);
 			}
 			if (baseDataItem.children.size() > 0){

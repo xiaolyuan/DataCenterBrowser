@@ -24,8 +24,8 @@ public class BaseData {
 		{
 			this.flag = 0;
 		}
-	}
-	
+	}	
+	//附件
 	public class FileDataItem extends BaseData{
 		public List<String> filePaths;
 	}
@@ -45,6 +45,7 @@ public class BaseData {
 		public List<String> filePaths;
 	}
 	
+	//链接
 	public class UrlDataItem extends BaseData{
 		public List<String> links;
 	}
@@ -59,6 +60,7 @@ public class BaseData {
 		public String link;
 	}
 	
+	//二维表i
 	public class TableDataItem extends BaseData{
 		public String value;
 	}
@@ -66,6 +68,11 @@ public class BaseData {
 	public class RichTextDataItem extends BaseData{
 		public String Text;
 	}
+	//视频
+	public class RideoDataItem extends BaseData{
+		public String link;
+		
+	} 
 }
 
 

@@ -67,5 +67,4 @@ public class ExtData extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
 }

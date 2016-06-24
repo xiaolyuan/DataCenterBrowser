@@ -36,8 +36,8 @@ public class FileServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//request.setCharacterEncoding("UTF-8");
-		//String fileid = request.getParameter("id");
-		String fileid = new String(request.getParameter("id").getBytes("iso-8859-1"),"utf-8");
+		String fileid = request.getParameter("imageid");
+		//String fileid = new String(request.getParameter("imageid").getBytes("iso-8859-1"),"utf-8");
 		responseString(response, fileid);
 	}
 
@@ -65,13 +65,6 @@ public class FileServlet extends HttpServlet {
 			//if(imgTypeStr.equals(".jpg")||imgTypeStr.equals(".bmp")||imgTypeStr.equals(".gif")||imgTypeStr.equals(".jpeg")||imgTypeStr.equals(".png")||imgTypeStr.equals(".swf")){
 			String	filePath="D:\\cw_upload\\image\\"+arrayfileName[i];
 //			}else if(imgTypeStr.equals(".txt") ||imgTypeStr.equals(".xlsx")){
-				//filePath="D:\\cw_upload\\file\\"+arrayfileName[i];	
-          //String filePath = "D:\\cw_upload\\image\\"+arrayfileName[i];
-			//String filePath1=fPath+arrayfileName[i];
-			//filePath=imagePath+arrayfileName[i];
-		
-         // filePath="D:\\cw_upload\\file\\"+arrayfileName[i];
-         // System.out.println(filePath+"ad");
 		
 		System.out.println(filePath);
 		

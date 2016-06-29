@@ -25,8 +25,8 @@ public class D3DServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//解决servlet中文乱码
-		String fileid=request.getParameter("D3Did");
-		//String fileid = new String(request.getParameter("D3Did").getBytes("iso-8859-1"),"utf-8");				
+		//String fileid=request.getParameter("D3Did");
+		String fileid = new String(request.getParameter("D3Did").getBytes("iso-8859-1"),"utf-8");				
 		responseString(response, fileid);	
 	}
 
@@ -57,11 +57,6 @@ public class D3DServlet extends HttpServlet {
 		
 		// TODO: 根据fileid得到filePath,
 		response.reset();
-		// 设置response的Header
-		//response.setContentType("application/octet-stream;charset=UTF-8;"); 
-		//response.setContentType("application/x-download; charset=utf-8");
-		//response.setContentType("application/force-download");	
-		//response.setContentType("multipart/form-data"); 
 		response.setContentType("application/x-msdownload");
 		byte[] result;
 		try {

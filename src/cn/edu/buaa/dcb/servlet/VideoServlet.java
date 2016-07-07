@@ -2,16 +2,11 @@ package cn.edu.buaa.dcb.servlet;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.StringUtils;
 /**
  * Servlet implementation class FileServlet
  */
@@ -32,7 +27,6 @@ public class VideoServlet extends HttpServlet {
 		//解决servlet中文乱码
 		//String fileid=request.getParameter("id");
 		String fileid = new String(request.getParameter("id").getBytes("iso-8859-1"),"utf-8");		
-		//String fileid = new String(request.getParameter("id").replaceAll(" ", "").getBytes("ISO8859-1"), "utf-8");
 		responseString(response, fileid);	
 	}
 
@@ -43,9 +37,6 @@ public class VideoServlet extends HttpServlet {
 	}
 	
 	public void responseString(HttpServletResponse response, String fileid)  {
-		//String filePaths =null;
-		//从文件名第二个 开始取
-		//String fileName=fileid.substring(1,fileid.length());
 		String fileName=fileid;
 		//按照";"进行分割，并循环显示
 		String [] arrayfileName=fileName.split(";");

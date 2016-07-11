@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
 public class Util {
 	public static byte[] toByteArray(String filename) throws IOException {
 		File f = new File(filename);
@@ -38,7 +37,6 @@ public class Util {
 			bos.close();
 		}
 	}
-
 	public static String readToString(String fileName) {
 	        String encoding = "GBK";  
 	        File file = new File(fileName);  

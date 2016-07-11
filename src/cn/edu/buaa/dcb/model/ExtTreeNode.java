@@ -10,18 +10,14 @@ public class ExtTreeNode {
 	 public String cls;
 	 public String text;
 	 public A_attr a_attr;
-
 	 public List<ExtTreeNode> children;
 	 public boolean leaf;
 	 public boolean singleClickExpand;
-	 
 	 public class A_attr{
-			public String href;
-			
+			public String href;	
 			public A_attr(String href){
 				this.href = href;
-			}
-		
+			}	
 }
 	 public ExtTreeNode(String id, String text,String iconCls,String cls) {
 		this.id = id;

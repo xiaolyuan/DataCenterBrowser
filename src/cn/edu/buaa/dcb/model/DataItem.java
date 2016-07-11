@@ -10,7 +10,7 @@ public class DataItem {
 	public List<String> parents;
 	
 	public String remark; // 备注
-	
+	public DataItem(){}
 	public DataItem(String title, String id, String remark, BaseData baseData){
 		this.title = title;
 		this.id = id.replace("#", "");

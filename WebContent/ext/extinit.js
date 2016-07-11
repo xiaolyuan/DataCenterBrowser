@@ -1,5 +1,4 @@
 function PlotOneContainer(ContainerId, x){
-	
 	var data = GetPlotData(ContainerId, x);
 	if (data.length == 0)
 		return;
@@ -38,8 +37,7 @@ function PlotOneContainer(ContainerId, x){
 				}
 			},
 			scale: 3,
-			fallbackToExportServer: false
-				
+			fallbackToExportServer: false		
 		},
 		title: {
 			text : ""
@@ -73,7 +71,7 @@ function PlotContainer(){
 function GetPlotData(ContainerId, xaxis){
 	var data = new Array();
 	var tokens = ContainerId.split("_")
-	var tableid = tokens[0] + "_" + tokens[1] + "_table";
+	var tableid = tokens[0] + "_table";
 	var num = 0;
 	var x_group = new Array();
 	$.each($("#" + tableid + " tbody tr"), function(idx, item){
@@ -119,12 +117,13 @@ function GetPlotData(ContainerId, xaxis){
 	}
 	return data;
 }
-
 function ExtDataItemProc(dataItem)
 {
+	
 	//var html = getLittletitle(dataItem.id, dataItem.title);
 	var html = "<tr class=\"config-row \" id= 'docs-" 
 		+ dataItem.id + "'>"
+		//alert(dataItem.id);
 	switch(dataItem.type){ 
 		case "TitleDataItem":    
 			html += 
@@ -145,38 +144,48 @@ function ExtDataItemProc(dataItem)
 	    	//图片
 	    case "ImageDataItem":
 	    	html += 
-	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"	
-	    	+"<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
-			+ dataItem.title
-			+ " : ";
+	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"
+	    		+ "<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
+				+ dataItem.title
+				+ " : ";
 	    	html += ImageDataItemProc(dataItem.id, dataItem.data);
 	    	break;
 	    	//附件
 	    case "FileDataItem":
 	    	html += 
-	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"	
-	    	+"<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
-			+ dataItem.title
-			+ " : ";
-	    	//html += FileDataItemProc(dataItem.id, dataItem.data);
+	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"
+	    		+ "<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
+				+ dataItem.title
+				+ " : ";
+	    	html += FileDataItemProc(dataItem.id, dataItem.data);
+	    	
 	    	break;
 	    	//文本
 	    case "TextDataItem":
 	    	html += 
-	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"	
-	    	+"<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
-			+ dataItem.title
-			+ " : ";
+	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"
+	    		+ "<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
+				+ dataItem.title
+				+ " : ";
 	    	html += TextDataItemProc(dataItem.id, dataItem.data, dataItem.remark);
 	    	break;
 	    	//浮点数
 	    case "FloatDataItem":
-	    	html +=
+	    	html += 
 	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"
-		    	+ "<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
+	    		+ "<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
 				+ dataItem.title
 				+ " : ";
+	    	html+=dataItem.remark;
 	    	html += FloatDataItemProc(dataItem.id, dataItem.data, dataItem.remark);
+	    	break;
+	    case"TimeDataItem":
+	    	html += 
+	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"
+	    		+ "<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
+				+ dataItem.title
+				+ " : ";
+	    	html += TimeDataItemProc(dataItem.id, dataItem.data);
 	    	break;
 	    case "RadioDataItem":
 	    	//html += RadioDataItemProc(dataItem.id, dataItem.data);
@@ -188,7 +197,7 @@ function ExtDataItemProc(dataItem)
 	    		+ "<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
 				+ dataItem.title
 				+ " : ";
-	    	//html +=RideoDataItemProc(dataItem.id,dataItem.data);
+	    	html +=RideoDataItemProc(dataItem.id,dataItem.data);
 	    	break;
 	    	//链接
 	    case "UrlDataItem":
@@ -221,7 +230,6 @@ function ExtDataItemProc(dataItem)
 				+ " : ";
 	    	
 	    	 html +=RichTextDataItemProc(dataItem.id,dataItem.data); 
-	    	//html +=RichTextDataItemProc(dataItem.id,dataItem.data);
 	    	break;
 	    	//二维表
 	    case "TableDataItem":
@@ -230,11 +238,7 @@ function ExtDataItemProc(dataItem)
 	    		+ "<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
 				+ dataItem.title
 				+ " : ";
-//	    	if (dataItem.remark != null && dataItem.remark != "")
-//	    		html += "&nbsp&nbsp&nbsp&nbsp(备注："+ dataItem.remark +")"; 
-//	    	html += "<div class=\"mdesc\">";
-//	    	//\\html += TableDataItemProc(dataItem.id, dataItem.data);
-//	    	html += "</div>";
+	    	html += TableDataItemProc(dataItem.id, dataItem.data);	
 	    	break;	
 	    default:
 	    	break;
@@ -316,108 +320,311 @@ function CurveDataItemProc(id, data)
 	//min-width:700px;
 	return html;
 }
-
+//附件
 function FileDataItemProc(id, data){
 	var html = "";
+	var remarkHtml="";
+	var remarks="";
+	if (data.remark != null && data.remark != ""){
+		 remarkLength(data.remark);
+		 items = cleanRemark(rema);
+		 remarks=data.remark;
+		remarkHtml= "<span id='file_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;text-decoration:underline'>" +
+		"(备注:" +items+")</span></span>";	}
+	 RemarkList(remarkHtml,remarks);
+	html=remarkHtml;
 	$.each(data.filePaths, function(idx, item){
-		html += "<p><span class=\"glyphicon glyphicon-file\" aria-hidden=\"true\"></span><a>"
-			+item+"</a></p>";
+		var filePath=item.split(";");
+		for (var i = 1; i < filePath.length; i++) {
+		html += "<p style='line-height:1.7;'><span ' class=\"glyphicon glyphicon-file\" aria-hidden=\"true\"></span><a href='FilenewServlet?id="+filePath[i]+"'>"
+		     +filePath[i]+"</a></p>";
+		}
 	});
-  	return html;
+	
+	return html;
 }
 
-function TextDataItemProc(id, data, remark){
-	var html = "<span><a href='ima/File.html'>文本</a></span>";
-	var remarkHtml = "";
-	if (remark != null && remark != "")
-		remarkHtml = "&nbsp&nbsp&nbsp&nbsp(备注：" + remark +  ")";
-	$.each(data.text, function(idx, item){
-		html += "<span>"+item+"</span>";
+
+var player_num = 0;
+//視頻
+function RideoDataItemProc(id,data){
+	var html="";
+	var remarkHtml="";
+	var  remarks="";
+	if (data.remark != null && data.remark != ""){
+		 remarkLength(data.remark);
+		 items = cleanRemark(rema);
+		 remarks=data.remark;
+		remarkHtml= "<span id='rideo_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;text-decoration:underline'>" +
+		"(备注:" +items+")</span></span>";	}
+	 RemarkList(remarkHtml,remarks);
+	html=remarkHtml+"<br/><br/>";
+	$.each(data.link,function(idx,item){
+		var link=item.split(";");
+		for (var i = 1; i < link.length; i++) {
+			player_num += 1;
+			html+="<p style='width: 900px;display:block;word-break: break-all;word-wrap: break-word;'><a class='a_video' href='VideoServlet?id="+link[i]+"'" +
+					" style='display:block;width:200;height:200px;margin-left:20px;margin-bottom:20px; float:left;'" +
+					"id='player_"+ player_num +"'></a></p>";	
+		}		
 	});
-	html += remarkHtml;
-  	return html;
+	
+	//备注
+       return html;
+}
+//调用播放容器player
+function playAllVideo(){
+	var idx = 0;
+	for(idx=1; idx <= player_num; idx ++){
+		flowplayer('player_' + idx, 'js/flowplayer/flowplayer-3.2.18.swf',{
+			clip:{
+				autoPlay:false,}, plugins: {
+					 fontColor: '#ffffff',
+					  backgroundColor: '#aedaff', //背景颜色
+				}
+			
+		});
+	}			
+}
+function TextDataItemProc(id, data, remark){
+	var html="";
+	var remarkHtml = "";
+	var remarks="";
+	if (data.remark != null && data.remark != ""){
+		 remarkLength(data.remark);
+		 items = cleanRemark(rema);
+			remarks=data.remark;
+		remarkHtml= "<span id='textData_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;text-decoration:underline'>" +
+		"(备注:" +items+")</span></span>";	}
+	//备注
+	 RemarkList(remarkHtml,remarks);
+	//文本
+	$.each(data.text, function(idx, item){
+		text=item.length;
+		if(text>40)
+			text=item.substring(0,41)+"....";
+		else
+			text=item;
+		html+="<span style= 'border:1px; solid #BFD4DA;margin-bottom:30px;line-height:1.7' id='text_" + id+ "'>"+text+"</span>"+remarkHtml+"";
+		$(document).on('click','#'+$(html).attr("id"),function(){
+			 layer.open({
+				  type: 1,
+				  closeBtn:1,
+				  title: ['文本', 'font-size:28px;'],
+				  skin: 'layui-layer-rim', //加上边框
+				  offset : ['0' , '60%','200px'],
+				  area: ['420px', '240px'], //宽高
+				  shadeClose: true,
+				  content: item,
+				});
+		 });
+	});
+  	return html;	
 }
 
 function ImageDataItemProc(id,data){
-// 	html="<div><span>"+data.urls+"</span></div>";
-//	return html;
+	var html="";
 	if (data.flag == 1){
-		var html = "<div class='imgslides'>";
+		var html="";
+		var remarkHtml = "";
+		var remarks="";
+		if (data.remark != null && data.remark != ""){
+			 remarkLength(data.remark);
+           remarks=data.remark;
+			items = cleanRemark(rema);
+			remarkHtml= "<span id='image_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style=';white-space:nowrap;text-decoration:underline'>" +
+			"(备注:" +items+")</span></span>";	
+		}
+		RemarkList(remarkHtml,remarks);
 		$.each(data.urls, function(idx, item){
-			html += "<img src=\"\DataItem?arg=file&file="+item+"\">";
-			
-		});
+			//按';'循环截取
+			var items=new Array();
+			items=item.split(";");	
+			html=remarkHtml+"<br/><br/>";
+			for (var i = 1; i < items.length; i++) {						
+				html+="<div id='sid_"+i+"' style='margin-bottom:20px;margin-left:20px'><img  src='FileServlet?imageid="+items[i]+"' style='border:1px; solid #BFD4DA; width:80%;height:800px;'></div>";                                                            
+			}
+		});	
+		
 	    return html;
 	}
-	else{
-		var html = "<div class='imgslides'>";
-		$.each(data.urls, function(idx, item){
-			html += "<img src=\""+item+"\">";
-		});
-	    return html;
-	}
-
-}
-function FloatDataItemProc(id, data, remark){
+} 
+function TimeDataItemProc(id,data){
 	var html = "";
 	var remarkHtml = "";
-	if (remark != null && remark != "")
-		remarkHtml = "&nbsp&nbsp&nbsp&nbsp(备注：" + remark +  ")";
-	html = "<span class=\"float\"><span>"+data.value+"</span>"+data.unit+"</span>" + remarkHtml;
-	return html;
+	var rema="";
+	var remarks="";
+	 if (data.remark != null && data.remark != ""){
+		 remarkLength(data.remark);
+		 items = cleanRemark(rema);
+		 remarks=data.remark;
+			 rema= "<span id='Time_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;text-decoration:underline'>" +
+				"(备注:" +items+")</span></span>";	
+			}
+	 html+= "<span  class=\"float\"><span style='white-space:nowrap;weith:80px;'>"+data.time+""+rema+"</span></span>"+"<br/>";	
+	 RemarkList(rema,remarks);
+	 
+	 return html;
 }
+function FloatDataItemProc(id, data){
+	var html = "";
+	var remarkHtml = "";
+	var rema=""
+		var remarks="";
+	 if (data.remark != null && data.remark != ""){
+		 remarkLength(data.remark);
+		   items=cleanRemark(data.remark);	
+		   remarks=data.remark;
+			 rema= "<span id='float_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;text-decoration:underline'>" +
+				"(备注:" +items+")</span></span>";	
+			}
+	 RemarkList(rema,remarks);
+	 html+= "<span  class=\"float\"><span style='white-space:nowrap;weith:80px;'>"+data.value+""+rema+"</span>"+data.unit+"</span>"+"<br/>";	
+	
+	 
+	 return html;
+}
+
 function D3DataItemProc(id, data){
-	var html="";
-	 html="<span><a href='ima/10681608_155715005320_2[1].jpg'>三维模型</a></span>";
-//	var html = "<div style='text-align: center;'>"
-//		+ "<embed src=\"\DataItem?arg=file&file="+data.link+"\" width=\"80%\" height=\"400\" "
-//		+" type=\"application/x-cortona\"   pluginspage=\"http://www.cortona3d.com/cortona\"   vrml_splashscreen=\"false\" "
-//		+" vrml_dashboard=\"false\"   vrml_background_color=\"#f7f7f9\"   contextmenu=\"false\" ></div>"
-  	return html;
-}
+var html="";
+var remarks="";
+var remarkHtml="";
+	 if (data.remark != null && data.remark != ""){
+		 remarkLength(data.remark);
+			items=cleanRemark(rema);
+			remarks=data.remark;
+			remarkHtml= "<span id='D3D_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;text-decoration:underline'>" +
+				"(备注:" +items+")</span></span>";	
+			}
+	 RemarkList(remarkHtml,remarks);
+ html=remarkHtml+"<br/><br/>";
+
+$.each(data.link, function(idx, item){
+	//按';'循环截取
+	var items=new Array();
+	items=item.split(";");	
+	for (var i = 1; i <items.length; i++) {	
+		 html += "<div id='3D_"+i+"' style='margin-bottom:20px;margin-left:20px'>"
+			+ "<embed src=\"\D3DServlet?D3Did="+items[i]+"\" width=\"80%\" height=\"400\" "
+			+" type=\"application/x-cortona\" "
+			+"   ></div>";	
+	}
+	// vrml_background_color=\"#f7f7f9\" vrml_dashboard=\"true\"     contextmenu=\"true\" vrml_splashscreen=\"false\"  pluginspage=\"http://www.cortona3d.com/cortona\"
+});
+		return html;
+}	
 function RichTextDataItemProc(id,data){
 	var html="";
-    html="<div class='sid' style='border:1px solid #BFD4DA;background-image:url(ima/9209405_150035420154_2[1].jpg)'>"
-    	+"<table><tr>"+data.Text
-    	+"</tr></table></div>";
-   
+	var remarks="";
+	var remarkHtml="";
+	 if (data.remark != null && data.remark != ""){
+//		 remalength=data.remark;
+//		 if(remalength>30)
+//			 rema=data.remark.substring(0,30)+"....";
+//		 else
+//		 rema=data.remark;
+		 remarkLength(data.remark);
+			items=cleanRemark(rema);
+			remarks=data.remark;
+		 remarkHtml= "<span id='float_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;text-decoration:underline'>" +
+				"(备注:" +items+")</span></span>";	
+			}
+	    RemarkList(remarkHtml,remarks);
+    html+=remarkHtml+"<br/><br/><div style='margin-left:20px;border:1px; solid #BFD4DA;'>"
+    	+""+data.Text
+    	+"</div>";
 	return html;
+}
+function remarkLength(remarkData){
+	 remalength=remarkData.length;
+	 if(remalength>30)
+		 rema=remarkData.substring(0,30)+"....";
+	 else
+	 rema=remarkData;
+}
+function RemarkList(remarkHtml,remarks){
+	$(document).on('click','#'+$(remarkHtml).attr("id"),function(){
+		 layer.open({
+			  type: 1,
+			  closeBtn:1,
+			  title: ['备注', 'font-size:18px;'],
+			  skin: 'layui-layer-rim', //加上边框
+			  area: ['420px', '240px'], //宽高
+			  shadeClose: true,
+			  border : [10 , 0.3 , 'red', true],
+			  offset : ['0' , '60%','200px'],
+			  content: remarks,
+			});
+	 });
 }
 //链接
 function UrlDataItemProc(id, data){
-	var html = "<a href='http://www.baidu.com'>www.baidu.com</a>";
+	var html="";
+	if (data.remark != null && data.remark != "")
+	html = "&nbsp&nbsp&nbsp&nbsp<span style=''>(备注：" + data.remark + ")</span>";
+	 html += "<a href='http://www.baidu.com'>www.baidu.com</a>";
 //	$.each(data.links, function(idx, item){
 //		html += "<p><a>"+item+"</a></p>";
 //	});
   	return html;
 }
 function TableDataItemProc(id, data){
-	data = $.parseJSON(data.value)
 	var tableid = id + "_table";
 	var plotid = id + "_plot";
+	var remarkHtml="";
+	var html="";
+	var remarks="";
+	 if (data.remark != null && data.remark != ""){
+		 remarkLength(data.remark);
+			items=cleanRemark(rema);
+			//alert(items)
+			remarks=data.remark;
+		 remarkHtml= "<span id='TableData_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;text-decoration:underline'>" +
+				"(备注:" +items+")</span></span>";	
+			}
+	 RemarkList(remarkHtml,remarks)
+	 html+=remarkHtml+"</br></br>";
 	var thead = "<tr>";
-	$.each(data.header, function(idx, item){
-		thead += "<th><span>"+item
+       var items="";
+       items=data.remark3.split(";");
+		for (var i = 0; i <items.length; i++) {	
+		thead += "<th><span>"+items[i]
 		+"</span>" 
-		+"<label style='margin-left: 5px;'>" 
+		+"<label style='margin-left: 2px;'>" 
 		+"<input onclick='RadioClick(this)' type=\"radio\" class='table_radio' name=\"radio_"+tableid+"\"> X轴</label>"
 		+"</th>";
-	});
+		}
 	thead += "</tr>";
 	
 	var tbody = "";
-	$.each(data.body, function(idx, item){
-		var t = "";
-		if (idx >= 10)
-			t = "style=\"display: none;\"";
-		tbody += "<tr " + t + ">";
-		$.each(item, function(i, tem){
-			tbody += "<td>"+tem+"</td>";
+	
+	$.each(data.value, function(idx, item){	
+		a=item.split("#");
+		$.each(a,function(idxs,items){
+			var t = "";
+			if(idxs>10)
+			t = "style=\"display: none;\"";		
+			b=items.split(";");
+			tbody += "<tr " + t + ">";
+		$.each(b,function(idx,itemsData){
+			tbody += "<td>"+itemsData+"</td>";
 		});
+		});
+//		for (var i = 0; i <a.length; i++) {
+//			b = a[i].split(";");
+//			if (ad>= 10)
+//			t = "style=\"display: none;\"";	
+//			tbody+="<tr"+t+">";	
+//			
+//		for (var j = 0; j < b.length; j++) {
+//			tbody += "<td>"+b[j]+"</td>";
+//			//alert(b.length);
+//		}
+//		}
 		tbody += "</tr>";
 	});
 	
-	var html = ""
+	html += ""
 		+"   <div class=\"tab-pane fade in active\" id=\""+tableid+"\">"
 		+"      <table class=\"member-table\"> " 
 		+"          <thead>"
@@ -436,7 +643,6 @@ function TableDataItemProc(id, data){
 		+"        <div id=\""+plotid+"_container\" class='plot_container' style=\"min-width:700px;\"></div>   "
 		+"   </div>"
 		+"</div>";
-	//min-width:700px;
 	return html;
 }
 
@@ -450,7 +656,7 @@ function getParents(list)
 }
 
 function showmore(obj){
-	var tableid = obj.id.split("_")[0] + "_target_table";
+	var tableid = obj.id.split("_")[0] + "_table";
 	if ($(obj).text() == "显示更多..."){
 		$.each($("#"+tableid + " tbody tr"), function(idx, item){
 			$(item).show();
@@ -464,4 +670,10 @@ function showmore(obj){
 				$(item).hide();
 		});
 	}
+}
+
+//clean the remark
+function cleanRemark(remark)
+{
+	return remark.replace(/<p>/g,"").replace(/<\/p>/g,"").replace(/<br>/g,"");
 }

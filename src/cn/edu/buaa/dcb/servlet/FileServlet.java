@@ -33,8 +33,8 @@ public class FileServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//request.setCharacterEncoding("UTF-8");
-		//String fileid = request.getParameter("imageid");
-		String fileid = new String(request.getParameter("imageid").getBytes("iso-8859-1"),"utf-8");
+		String fileid = request.getParameter("imageid");
+		//String fileid = new String(request.getParameter("imageid").getBytes("iso-8859-1"),"utf-8");
 		responseString(response, fileid);
 	}
 

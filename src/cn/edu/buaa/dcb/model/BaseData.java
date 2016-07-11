@@ -1,6 +1,9 @@
 package cn.edu.buaa.dcb.model;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 
 public class BaseData {
@@ -8,7 +11,7 @@ public class BaseData {
 		BaseData single = new BaseData();  
 		return single;  
    }
-	
+	public String remark;
 	public class TitleDataItem extends BaseData{
 	}
 	
@@ -29,7 +32,10 @@ public class BaseData {
 	public class FileDataItem extends BaseData{
 		public List<String> filePaths;
 	}
-	
+	//时间
+	public class TimeDataItem extends BaseData{
+		public String time;
+	}
 	//文本
 	public class TextDataItem extends BaseData{
 		public List<String> text;
@@ -57,20 +63,21 @@ public class BaseData {
 	
 	//三维模型
 	public class D3DataItem extends BaseData{
-		public String link;
+		public List<String> link;
 	}
 	
 	//二维表i
 	public class TableDataItem extends BaseData{
-		public String value;
+		public List<String> value;
+        public String remark3;
 	}
 	//富文本
 	public class RichTextDataItem extends BaseData{
-		public String Text;
+		public List<String> Text;
 	}
 	//视频
 	public class RideoDataItem extends BaseData{
-		public String link;
+		public List<String> link;
 		
 	} 
 }

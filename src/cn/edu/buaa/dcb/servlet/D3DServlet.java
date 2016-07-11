@@ -25,8 +25,8 @@ public class D3DServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//解决servlet中文乱码
-		//String fileid=request.getParameter("D3Did");
-		String fileid = new String(request.getParameter("D3Did").getBytes("iso-8859-1"),"utf-8");				
+		String fileid=request.getParameter("D3Did");
+		//String fileid = new String(request.getParameter("D3Did").getBytes("iso-8859-1"),"utf-8");				
 		responseString(response, fileid);	
 	}
 

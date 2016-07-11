@@ -37,6 +37,7 @@ function initwelcome(){
 		+"<table id='docs-table' cellspacing=\"0\" class=\"member-table\"><tbody>";
 	$.each(data.DataItem, function(idx, item){
 		html += ExtDataItemProc(item);
+		
 	});
 	html += "</tbody></table></div>";
 	
@@ -46,16 +47,16 @@ function initwelcome(){
 
 function RadioClick(obj){
 	var tokens = $(obj)[0].name.split("_")
-	var ContainerId = tokens[1] + "_" + tokens[2] + "_plot_container";
+	
+	var ContainerId = tokens[1] + "_plot_container";
 	var x = GetXAxis(ContainerId);
 	PlotOneContainer(ContainerId, x);
 }
 
 function GetXAxis(ContainerId)
 {
-	var tokens = ContainerId.split("_")
-	var tableid = tokens[0] + "_" + tokens[1] + "_table";
-	
+	var tokens = ContainerId.split("_");
+	var tableid = tokens[0] + "_table";	
 	var r = 0;
 	$.each($("#" + tableid + " thead th input"), function(idx, item){
 		 if($(item)[0].checked)

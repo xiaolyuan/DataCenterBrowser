@@ -364,7 +364,7 @@ function RideoDataItemProc(id,data){
 		for (var i = 1; i < link.length; i++) {
 			player_num += 1;
 			html+="<p style='width: 900px;display:block;word-break: break-all;word-wrap: break-word;'><a class='a_video' href='VideoServlet?id="+link[i]+"'" +
-					" style='display:block;width:200;height:200px;margin-left:20px;margin-bottom:20px; float:left;'" +
+					" style='display:block;width:267;height:200px;margin-left:20px;margin-bottom:20px; float:left;'" +
 					"id='player_"+ player_num +"'></a></p>";	
 		}		
 	});
@@ -386,6 +386,7 @@ function playAllVideo(){
 		});
 	}			
 }
+
 function TextDataItemProc(id, data, remark){
 	var html="";
 	var remarkHtml = "";
@@ -421,7 +422,17 @@ function TextDataItemProc(id, data, remark){
 	});
   	return html;	
 }
+//实现鼠标滑动放大缩小
+function bigimg(i)
+{
+	var zoom = parseInt(i.style.zoom,10)||100;
+	zoom += event.wheelDelta / 12;
+	if(zoom > 0 )
+	i.style.zoom=zoom+'%';
+	return false;
+}
 
+var imageid=0;
 function ImageDataItemProc(id,data){
 	var html="";
 	if (data.flag == 1){
@@ -436,19 +447,32 @@ function ImageDataItemProc(id,data){
 			"(备注:" +items+")</span></span>";	
 		}
 		RemarkList(remarkHtml,remarks);
+		
 		$.each(data.urls, function(idx, item){
 			//按';'循环截取
 			var items=new Array();
 			items=item.split(";");	
 			html=remarkHtml+"<br/><br/>";
-			for (var i = 1; i < items.length; i++) {						
-				html+="<div id='sid_"+i+"' style='margin-bottom:20px;margin-left:20px'><img  src='FileServlet?imageid="+items[i]+"' style='border:1px; solid #BFD4DA; width:80%;height:800px;'></div>";                                                            
+			for (var i = 1; i < items.length; i++) {
+				imageid+=1;
+				//<div id='sid_"+i+"' style='margin-left:20px;'>  <div id='div_pop_"+i+"' style='display:none;'>
+				html+="<img id='img_"+imageid+"' data-original='FileServlet?imageid="+items[i]+"' src='FileServlet?imageid="+items[i]+"' " +
+						"style='border:1px; solid #BFD4DA;width:285px;height:200px;margin-left:20px;" +
+						"float:left;margin-bottom:20px;'/ >";   
+			
 			}
 		});	
-		
 	    return html;
 	}
 } 
+//调用图片弹出层控件
+function showImage(){
+	var idx = 0;
+	for (idx = 1; idx <=imageid ; idx++) {
+		var viewer = new Viewer(document.getElementById('img_'+idx));	
+	}
+		
+}
 function TimeDataItemProc(id,data){
 	var html = "";
 	var remarkHtml = "";
@@ -535,13 +559,15 @@ function RichTextDataItemProc(id,data){
     	+"</div>";
 	return html;
 }
+//备注的公共方法
 function remarkLength(remarkData){
 	 remalength=remarkData.length;
-	 if(remalength>30)
-		 rema=remarkData.substring(0,30)+"....";
+	 if(remalength>42)
+		 rema=remarkData.substring(0,42)+"....";
 	 else
 	 rema=remarkData;
 }
+//备注弹出框的公共方法
 function RemarkList(remarkHtml,remarks){
 	$(document).on('click','#'+$(remarkHtml).attr("id"),function(){
 		 layer.open({

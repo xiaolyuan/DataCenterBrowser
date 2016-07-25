@@ -26,7 +26,7 @@ public class VideoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//解决servlet中文乱码
 		String fileid=request.getParameter("id");
-		//String fileid = new String(request.getParameter("id").getBytes("iso-8859-1"),"utf-8");		
+	    // String fileid = new String(request.getParameter("id").getBytes("iso-8859-1"),"utf-8");		
 		responseString(response, fileid);	
 	}
 

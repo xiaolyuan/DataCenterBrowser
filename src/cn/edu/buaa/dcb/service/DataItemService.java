@@ -48,16 +48,32 @@ public class DataItemService {
 //		String url = "http://202.112.140.210/CooperateWeb/case/name/数据库分类1&数据库1/case/name/实例分类1&实例1";
 		System.out.println(url);
 		String jsonString = httpClientUtils.getDoGetURL(url, charset);
+		
 		BaseDataItem[] baseDataItems = gson.fromJson(jsonString, BaseDataItem[].class); 
-		System.out.println(jsonString);
-		//List<BaseDataItem> baseDataItem=generateBaseDataItem(baseDataItems);
+		for (BaseDataItem baseDataItem : baseDataItems) {
+			if(baseDataItem.type==6){	
+				
+		int adminId=baseDataItem.id;
+		String url1 = Utility.getParameter("db_url")+"case/id/"+adminId+"?action=get";
+		System.out.println(url1);
+		String j=httpClientUtils.getDoGetURL(url1, charset);
+		System.out.println(j);
+		//new TypeToken<List<SchemaData>>(){}.getType()
+			BaseDataItem[] ba=gson.fromJson(j,BaseDataItem[].class);
+			List<DataItem> dataItems = new ArrayList<DataItem>();
+			generateDataItem(dataItems,  ba);	
+			List<ExtTreeNode> extTreeNodes = generateExtTreeNode(ba);	
+			HashMap<String, Object> result = new HashMap<String, Object>();
+			result.put("TreeNode", extTreeNodes);
+			result.put("DataItem", dataItems);	
+			return result;	
+		}}
 		List<DataItem> dataItems = new ArrayList<DataItem>();
 		generateDataItem(dataItems, baseDataItems);	
 		List<ExtTreeNode> extTreeNodes = generateExtTreeNode(baseDataItems);	
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("TreeNode", extTreeNodes);
 		result.put("DataItem", dataItems);	
-		//result.put("baseDataItem", baseDataItem);	
 		return result;	
 	}
 	private void generateDataItem(List<DataItem> dataItems, BaseDataItem[] baseDataItems) {	   

@@ -90,21 +90,3 @@ public class FileServlet extends HttpServlet {
 		}}
 	}
      
-	//解决中文乱码
-//	public  static String encodingFileName(String fileName) {
-//		  String returnFileName = ""; 
-//	      try { 
-//	            returnFileName = URLEncoder.encode(fileName, "UTF-8"); 
-//	            returnFileName = StringUtils.replace(returnFileName, "+", "%20"); 
-//	            if (returnFileName.length() > 150) { 
-//	                returnFileName = new String(fileName.getBytes("GB2312"), "ISO8859-1"); 
-//	                returnFileName = StringUtils.replace(returnFileName, " ", "%20"); 	        
-//	            } 
-//	        } catch (UnsupportedEncodingException e) { 
-//	            e.printStackTrace();        
-//	        } 
-//	        
-//	        return returnFileName; 
-//	        
-//	}
-

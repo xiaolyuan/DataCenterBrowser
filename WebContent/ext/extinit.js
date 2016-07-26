@@ -422,15 +422,15 @@ function TextDataItemProc(id, data, remark){
 	});
   	return html;	
 }
-//实现鼠标滑动放大缩小
-function bigimg(i)
-{
-	var zoom = parseInt(i.style.zoom,10)||100;
-	zoom += event.wheelDelta / 12;
-	if(zoom > 0 )
-	i.style.zoom=zoom+'%';
-	return false;
-}
+////实现鼠标滑动放大缩小
+//function bigimg(i)
+//{
+//	var zoom = parseInt(i.style.zoom,10)||100;
+//	zoom += event.wheelDelta / 12;
+//	if(zoom > 0 )
+//	i.style.zoom=zoom+'%';
+//	return false;
+//}
 
 var imageid=0;
 function ImageDataItemProc(id,data){

@@ -329,7 +329,7 @@ function FileDataItemProc(id, data){
 		 remarkLength(data.remark);
 		 items = cleanRemark(rema);
 		 remarks=data.remark;
-		remarkHtml= "<span id='file_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;text-decoration:underline'>" +
+		remarkHtml= "<span id='file_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;'>" +
 		"(备注:" +items+")</span></span>";	}
 	 RemarkList(remarkHtml,remarks);
 	html=remarkHtml;
@@ -355,7 +355,7 @@ function RideoDataItemProc(id,data){
 		 remarkLength(data.remark);
 		 items = cleanRemark(rema);
 		 remarks=data.remark;
-		remarkHtml= "<span id='rideo_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;text-decoration:underline'>" +
+		remarkHtml= "<span id='rideo_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;'>" +
 		"(备注:" +items+")</span></span>";	}
 	 RemarkList(remarkHtml,remarks);
 	html=remarkHtml+"<br/><br/>";
@@ -395,7 +395,7 @@ function TextDataItemProc(id, data, remark){
 		 remarkLength(data.remark);
 		 items = cleanRemark(rema);
 			remarks=data.remark;
-		remarkHtml= "<span id='textData_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;text-decoration:underline'>" +
+		remarkHtml= "<span id='textData_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;'>" +
 		"(备注:" +items+")</span></span>";	}
 	//备注
 	 RemarkList(remarkHtml,remarks);
@@ -443,7 +443,7 @@ function ImageDataItemProc(id,data){
 			 remarkLength(data.remark);
            remarks=data.remark;
 			items = cleanRemark(rema);
-			remarkHtml= "<span id='image_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style=';white-space:nowrap;text-decoration:underline'>" +
+			remarkHtml= "<span id='image_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style=';white-space:nowrap;'>" +
 			"(备注:" +items+")</span></span>";	
 		}
 		RemarkList(remarkHtml,remarks);
@@ -482,7 +482,7 @@ function TimeDataItemProc(id,data){
 		 remarkLength(data.remark);
 		 items = cleanRemark(rema);
 		 remarks=data.remark;
-			 rema= "<span id='Time_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;text-decoration:underline'>" +
+			 rema= "<span id='Time_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;'>" +
 				"(备注:" +items+")</span></span>";	
 			}
 	 html+= "<span  class=\"float\"><span style='white-space:nowrap;weith:80px;'>"+data.time+""+rema+"</span></span>"+"<br/>";	
@@ -499,7 +499,7 @@ function FloatDataItemProc(id, data){
 		 remarkLength(data.remark);
 		   items=cleanRemark(data.remark);	
 		   remarks=data.remark;
-			 rema= "<span id='float_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;text-decoration:underline'>" +
+			 rema= "<span id='float_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;'>" +
 				"(备注:" +items+")</span></span>";	
 			}
 	 RemarkList(rema,remarks);
@@ -517,7 +517,7 @@ var remarkHtml="";
 		 remarkLength(data.remark);
 			items=cleanRemark(rema);
 			remarks=data.remark;
-			remarkHtml= "<span id='D3D_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;text-decoration:underline'>" +
+			remarkHtml= "<span id='D3D_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;'>" +
 				"(备注:" +items+")</span></span>";	
 			}
 	 RemarkList(remarkHtml,remarks);
@@ -550,7 +550,7 @@ function RichTextDataItemProc(id,data){
 		 remarkLength(data.remark);
 			items=cleanRemark(rema);
 			remarks=data.remark;
-		 remarkHtml= "<span id='float_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;text-decoration:underline'>" +
+		 remarkHtml= "<span id='float_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;'>" +
 				"(备注:" +items+")</span></span>";	
 			}
 	    RemarkList(remarkHtml,remarks);
@@ -605,7 +605,7 @@ function TableDataItemProc(id, data){
 			items=cleanRemark(rema);
 			//alert(items)
 			remarks=data.remark;
-		 remarkHtml= "<span id='TableData_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;text-decoration:underline'>" +
+		 remarkHtml= "<span id='TableData_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;'>" +
 				"(备注:" +items+")</span></span>";	
 			}
 	 RemarkList(remarkHtml,remarks)

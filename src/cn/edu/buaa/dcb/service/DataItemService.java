@@ -47,8 +47,7 @@ public class DataItemService {
 		String url = Utility.getParameter("db_url") + nodeid.replace("|", "&")+ "?action=get";
 //		String url = "http://202.112.140.210/CooperateWeb/case/name/数据库分类1&数据库1/case/name/实例分类1&实例1";
 		System.out.println(url);
-		String jsonString = httpClientUtils.getDoGetURL(url, charset);
-		
+		String jsonString = httpClientUtils.getDoGetURL(url, charset);	
 		BaseDataItem[] baseDataItems = gson.fromJson(jsonString, BaseDataItem[].class); 
 		for (BaseDataItem baseDataItem : baseDataItems) {
 			if(baseDataItem.type==6){	

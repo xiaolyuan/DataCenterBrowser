@@ -61,7 +61,6 @@ public class FileServlet extends HttpServlet {
 		for (int i = 0; i < arrayfileName.length; i++) {
 			//if(imgTypeStr.equals(".jpg")||imgTypeStr.equals(".bmp")||imgTypeStr.equals(".gif")||imgTypeStr.equals(".jpeg")||imgTypeStr.equals(".png")||imgTypeStr.equals(".swf")){
 			String	filePath="D:\\cw_upload\\image\\"+arrayfileName[i];
-//			}else if(imgTypeStr.equals(".txt") ||imgTypeStr.equals(".xlsx")){
 		
 		System.out.println(filePath);
 		

@@ -157,8 +157,7 @@ function ExtDataItemProc(dataItem)
 	    		+ "<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
 				+ dataItem.title
 				+ " : ";
-	    	html += FileDataItemProc(dataItem.id, dataItem.data);
-	    	
+	    	html += FileDataItemProc(dataItem.id, dataItem.data);    	
 	    	break;
 	    	//文本
 	    case "TextDataItem":
@@ -179,6 +178,7 @@ function ExtDataItemProc(dataItem)
 	    	html+=dataItem.remark;
 	    	html += FloatDataItemProc(dataItem.id, dataItem.data, dataItem.remark);
 	    	break;
+	    	//时间
 	    case"TimeDataItem":
 	    	html += 
 	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"
@@ -291,8 +291,7 @@ function CurveDataItemProc(id, data)
 			});
 			tbody += "</tr>";
 		}
-	});
-	
+	});	
 	var html = 
 		"<ul class=\"nav nav-tabs\">"
 		+"   <li class=\"active\">"
@@ -386,7 +385,7 @@ function playAllVideo(){
 		});
 	}			
 }
-
+//文本
 function TextDataItemProc(id, data, remark){
 	var html="";
 	var remarkHtml = "";
@@ -431,7 +430,7 @@ function TextDataItemProc(id, data, remark){
 //	i.style.zoom=zoom+'%';
 //	return false;
 //}
-
+//图片
 var imageid=0;
 function ImageDataItemProc(id,data){
 	var html="";
@@ -446,8 +445,7 @@ function ImageDataItemProc(id,data){
 			remarkHtml= "<span id='image_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style=';white-space:nowrap;'>" +
 			"(备注:" +items+")</span></span>";	
 		}
-		RemarkList(remarkHtml,remarks);
-		
+		RemarkList(remarkHtml,remarks);		
 		$.each(data.urls, function(idx, item){
 			//按';'循环截取
 			var items=new Array();
@@ -458,8 +456,7 @@ function ImageDataItemProc(id,data){
 				//<div id='sid_"+i+"' style='margin-left:20px;'>  <div id='div_pop_"+i+"' style='display:none;'>
 				html+="<img id='img_"+imageid+"' data-original='FileServlet?imageid="+items[i]+"' src='FileServlet?imageid="+items[i]+"' " +
 						"style='border:1px; solid #BFD4DA;width:285px;height:200px;margin-left:20px;" +
-						"float:left;margin-bottom:20px;'/ >";   
-			
+						"float:left;margin-bottom:20px;'/ >";   	
 			}
 		});	
 	    return html;
@@ -473,6 +470,7 @@ function showImage(){
 	}
 		
 }
+//时间
 function TimeDataItemProc(id,data){
 	var html = "";
 	var remarkHtml = "";
@@ -490,6 +488,7 @@ function TimeDataItemProc(id,data){
 	 
 	 return html;
 }
+//浮点数
 function FloatDataItemProc(id, data){
 	var html = "";
 	var remarkHtml = "";
@@ -508,7 +507,7 @@ function FloatDataItemProc(id, data){
 	 
 	 return html;
 }
-
+//三维模型
 function D3DataItemProc(id, data){
 var html="";
 var remarks="";
@@ -530,13 +529,16 @@ $.each(data.link, function(idx, item){
 	for (var i = 1; i <items.length; i++) {	
 		 html += "<div id='3D_"+i+"' style='margin-bottom:20px;margin-left:20px'>"
 			+ "<embed src=\"\D3DServlet?D3Did="+items[i]+"\" width=\"80%\" height=\"400\" "
-			+" type=\"application/x-cortona\" "
-			+"   ></div>";	
+			+" type=\"application/x-cortona\" " +
+					"vrml_background_color=\"#f7f7f9\" vrml_dashboard=\"true\" " +
+					" contextmenu=\"true\" vrml_splashscreen=\"false\" " +
+					" pluginspage=\"http://www.cortona3d.com/cortona\" ></div>";	
 	}
 	// vrml_background_color=\"#f7f7f9\" vrml_dashboard=\"true\"     contextmenu=\"true\" vrml_splashscreen=\"false\"  pluginspage=\"http://www.cortona3d.com/cortona\"
 });
 		return html;
 }	
+//富文本
 function RichTextDataItemProc(id,data){
 	var html="";
 	var remarks="";
@@ -559,30 +561,7 @@ function RichTextDataItemProc(id,data){
     	+"</div>";
 	return html;
 }
-//备注的公共方法
-function remarkLength(remarkData){
-	 remalength=remarkData.length;
-	 if(remalength>42)
-		 rema=remarkData.substring(0,42)+"....";
-	 else
-	 rema=remarkData;
-}
-//备注弹出框的公共方法
-function RemarkList(remarkHtml,remarks){
-	$(document).on('click','#'+$(remarkHtml).attr("id"),function(){
-		 layer.open({
-			  type: 1,
-			  closeBtn:1,
-			  title: ['备注', 'font-size:18px;'],
-			  skin: 'layui-layer-rim', //加上边框
-			  area: ['420px', '240px'], //宽高
-			  shadeClose: true,
-			  border : [10 , 0.3 , 'red', true],
-			  offset : ['0' , '60%','200px'],
-			  content: remarks,
-			});
-	 });
-}
+
 //链接
 function UrlDataItemProc(id, data){
 	var html="";
@@ -594,6 +573,7 @@ function UrlDataItemProc(id, data){
 //	});
   	return html;
 }
+//二维表
 function TableDataItemProc(id, data){
 	var tableid = id + "_table";
 	var plotid = id + "_plot";
@@ -697,8 +677,31 @@ function showmore(obj){
 		});
 	}
 }
-
-//clean the remark
+//备注的公共方法
+function remarkLength(remarkData){
+	 remalength=remarkData.length;
+	 if(remalength>42)
+		 rema=remarkData.substring(0,42)+"....";
+	 else
+	 rema=remarkData;
+}
+//备注弹出框的公共方法
+function RemarkList(remarkHtml,remarks){
+	$(document).on('click','#'+$(remarkHtml).attr("id"),function(){
+		 layer.open({
+			  type: 1,
+			  closeBtn:1,
+			  title: ['备注', 'font-size:18px;'],
+			  skin: 'layui-layer-rim', //加上边框
+			  area: ['420px', '240px'], //宽高
+			  shadeClose: true,
+			  border : [10 , 0.3 , 'red', true],
+			  offset : ['0' , '60%','200px'],
+			  content: remarks,
+			});
+	 });
+}
+//替换备注中的<p></p>标签（换行）
 function cleanRemark(remark)
 {
 	return remark.replace(/<p>/g,"").replace(/<\/p>/g,"").replace(/<br>/g,"");

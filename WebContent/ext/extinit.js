@@ -400,24 +400,25 @@ function TextDataItemProc(id, data, remark){
 	 RemarkList(remarkHtml,remarks);
 	//文本
 	$.each(data.text, function(idx, item){
-		text=item.length;
-		if(text>40)
-			text=item.substring(0,41)+"....";
-		else
-			text=item;
+//		text=item.length;
+//		if(text>40)
+//			text=item.substring(0,41)+"....";
+//		else
+//			text=item;
+		text=item;
 		html+="<span style= 'border:1px; solid #BFD4DA;margin-bottom:30px;line-height:1.7' id='text_" + id+ "'>"+text+"</span>"+remarkHtml+"";
-		$(document).on('click','#'+$(html).attr("id"),function(){
-			 layer.open({
-				  type: 1,
-				  closeBtn:1,
-				  title: ['文本', 'font-size:28px;'],
-				  skin: 'layui-layer-rim', //加上边框
-				  offset : ['0' , '60%','200px'],
-				  area: ['420px', '240px'], //宽高
-				  shadeClose: true,
-				  content: item,
-				});
-		 });
+//		$(document).on('click','#'+$(html).attr("id"),function(){
+//			 layer.open({
+//				  type: 1,
+//				  closeBtn:1,
+//				  title: ['文本', 'font-size:28px;'],
+//				  skin: 'layui-layer-rim', //加上边框
+//				  offset : ['0' , '60%','200px'],
+//				  area: ['420px', '240px'], //宽高
+//				  shadeClose: true,
+//				  content: item,
+//				});
+//		 });
 	});
   	return html;	
 }
@@ -527,12 +528,12 @@ $.each(data.link, function(idx, item){
 	var items=new Array();
 	items=item.split(";");	
 	for (var i = 1; i <items.length; i++) {	
-		 html += "<div id='3D_"+i+"' style='margin-bottom:20px;margin-left:20px'>"
+		 html += "<div id='3D_"+i+"' style='margin-bottom:20px;margin-left:20px;overflow:scroll;'>"
 			+ "<embed src=\"\D3DServlet?D3Did="+items[i]+"\" width=\"80%\" height=\"400\" "
 			+" type=\"application/x-cortona\" " +
 					"vrml_background_color=\"#f7f7f9\" vrml_dashboard=\"true\" " +
 					" contextmenu=\"true\" vrml_splashscreen=\"false\" " +
-					" pluginspage=\"http://www.cortona3d.com/cortona\" ></div>";	
+					" pluginspage=\"http://www.cortona3d.com/cortona\"></div>";	
 	}
 	// vrml_background_color=\"#f7f7f9\" vrml_dashboard=\"true\"     contextmenu=\"true\" vrml_splashscreen=\"false\"  pluginspage=\"http://www.cortona3d.com/cortona\"
 });
@@ -692,10 +693,10 @@ function RemarkList(remarkHtml,remarks){
 			  type: 1,
 			  closeBtn:1,
 			  title: ['备注', 'font-size:18px;'],
-			  skin: 'layui-layer-rim', //加上边框
-			  area: ['420px', '240px'], //宽高
+			  skin: 'layui-layer-lan', //加上边框
+			  area: ['450px', '400px'], //宽高
 			  shadeClose: true,
-			  border : [10 , 0.3 , 'red', true],
+			  border : [10 , 0.3 , '#000', true],
 			  offset : ['0' , '60%','200px'],
 			  content: remarks,
 			});

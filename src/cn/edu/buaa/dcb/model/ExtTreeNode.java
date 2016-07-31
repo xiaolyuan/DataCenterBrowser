@@ -13,6 +13,7 @@ public class ExtTreeNode {
 	 public List<ExtTreeNode> children;
 	 public boolean leaf;
 	 public boolean singleClickExpand;
+	 public boolean expanded;
 	 public class A_attr{
 			public String href;	
 			public A_attr(String href){
@@ -26,14 +27,16 @@ public class ExtTreeNode {
 		this.text = text;
 		singleClickExpand = true;
 		leaf = true;
+		expanded=true;
 		this.a_attr = this.new A_attr("#" + this.id + "_target");
 	 }
 	 
 	 public ExtTreeNode(String id, String text) {
 			this.id = id;
 			this.text = text;
-			singleClickExpand = true;
+		    singleClickExpand = true;
 			leaf = true;
+			 expanded=true;
 		 }
 	 
 	 public void Add(ExtTreeNode extTreeNoede){
@@ -41,6 +44,7 @@ public class ExtTreeNode {
 			 children = new ArrayList<>();
 		 children.add(extTreeNoede);
 		 leaf = false;
+		 expanded=true;
 	 }
 
 	 }

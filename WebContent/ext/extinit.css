@@ -2,3 +2,38 @@ span.float span{
 	margin-right: 4px;
     font-size: 13px;
 }
+
+.span{
+	cursor:pointer;
+	white-space:nowrap;
+}
+
+.lineheight{
+	line-height:1.7;
+	border:1px; 
+	solid #BFD4DA;
+	margin-left:10px;
+}
+
+.marginleft{
+	margin-left:20px;
+	border:1px;
+	 solid #BFD4DA;
+	 margin-bottom:20px;
+}
+.vode{
+	width:285px;
+	height:200px;
+	margin-left:20px;
+	margin-bottom:20px;
+    float:left;
+    margin-left:20px;
+	border:1px;
+	solid #BFD4DA;
+	margin-bottom:20px
+}
+#whleft{
+	width:285px;
+	height:200px;
+	float:left;
+}

@@ -36,7 +36,7 @@ public class ExtTreeNode {
 			this.text = text;
 		    singleClickExpand = true;
 			leaf = true;
-			 expanded=true;
+		    expanded=true;
 		 }
 	 
 	 public void Add(ExtTreeNode extTreeNoede){
@@ -45,6 +45,8 @@ public class ExtTreeNode {
 		 children.add(extTreeNoede);
 		 leaf = false;
 		 expanded=true;
+		 
+		 
 	 }
 
 	 }

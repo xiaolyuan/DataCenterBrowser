@@ -236,6 +236,8 @@ function ExtDataItemProc(dataItem)
 	    	html += 
 	    		"<td class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></td>"
 	    		+ "<td class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
+	    		+ "<span style=\"color: blue; cursor:pointer;\" onclick='PlotAgain(\""+dataItem.id+"\")'>添加图表</span>" 
+	    		+ "&nbsp&nbsp&nbsp&nbsp"
 				+ dataItem.title
 				+ " : ";
 	    	html += TableDataItemProc(dataItem.id, dataItem.data);	
@@ -328,22 +330,22 @@ function FileDataItemProc(id, data){
 		 remarkLength(data.remark);
 		 items = cleanRemark(rema);
 		 remarks=data.remark;
-		remarkHtml= "<span id='file_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;'>" +
-		"(备注:" +items+")</span></span>";	}
+		remarkHtml= "<span id='file_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span class='span'>" +
+		"(备注:" +items+")</span></span>";
+		remarkColor(remarkHtml);	
+	}
 	 RemarkList(remarkHtml,remarks);
 	html=remarkHtml;
 	$.each(data.filePaths, function(idx, item){
 		var filePath=item.split(";");
 		for (var i = 1; i < filePath.length; i++) {
-		html += "<p style='line-height:1.7;'><span ' class=\"glyphicon glyphicon-file\" aria-hidden=\"true\"></span><a href='FilenewServlet?id="+filePath[i]+"'>"
+		html += "<p class='lineheight'><a  href='FilenewServlet?id="+filePath[i]+"'>"
 		     +filePath[i]+"</a></p>";
 		}
 	});
 	
 	return html;
 }
-
-
 var player_num = 0;
 //視頻
 function RideoDataItemProc(id,data){
@@ -354,8 +356,10 @@ function RideoDataItemProc(id,data){
 		 remarkLength(data.remark);
 		 items = cleanRemark(rema);
 		 remarks=data.remark;
-		remarkHtml= "<span id='rideo_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;'>" +
-		"(备注:" +items+")</span></span>";	}
+		remarkHtml= "<span id='rideo_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span class='span'>" +
+		"(备注:" +items+")</span></span>";
+		remarkColor(remarkHtml);	
+	}
 	 RemarkList(remarkHtml,remarks);
 	html=remarkHtml+"<br/><br/>";
 	$.each(data.link,function(idx,item){
@@ -394,43 +398,19 @@ function TextDataItemProc(id, data, remark){
 		 remarkLength(data.remark);
 		 items = cleanRemark(rema);
 			remarks=data.remark;
-		remarkHtml= "<span id='textData_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;'>" +
-		"(备注:" +items+")</span></span>";	}
+		remarkHtml= "<span id='textData_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span class='span'>" +
+		"(备注:" +items+")</span></span>";
+		remarkColor(remarkHtml);
+		}
 	//备注
 	 RemarkList(remarkHtml,remarks);
 	//文本
 	$.each(data.text, function(idx, item){
-//		text=item.length;
-//		if(text>40)
-//			text=item.substring(0,41)+"....";
-//		else
-//			text=item;
 		text=item;
-		html+="<span style= 'border:1px; solid #BFD4DA;margin-bottom:30px;line-height:1.7' id='text_" + id+ "'>"+text+"</span>"+remarkHtml+"";
-//		$(document).on('click','#'+$(html).attr("id"),function(){
-//			 layer.open({
-//				  type: 1,
-//				  closeBtn:1,
-//				  title: ['文本', 'font-size:28px;'],
-//				  skin: 'layui-layer-rim', //加上边框
-//				  offset : ['0' , '60%','200px'],
-//				  area: ['420px', '240px'], //宽高
-//				  shadeClose: true,
-//				  content: item,
-//				});
-//		 });
+		html+="<span class='lineheight' id='text_" + id+ "'>"+text+"</span>"+remarkHtml+"";
 	});
   	return html;	
 }
-////实现鼠标滑动放大缩小
-//function bigimg(i)
-//{
-//	var zoom = parseInt(i.style.zoom,10)||100;
-//	zoom += event.wheelDelta / 12;
-//	if(zoom > 0 )
-//	i.style.zoom=zoom+'%';
-//	return false;
-//}
 //图片
 var imageid=0;
 function ImageDataItemProc(id,data){
@@ -443,8 +423,9 @@ function ImageDataItemProc(id,data){
 			 remarkLength(data.remark);
            remarks=data.remark;
 			items = cleanRemark(rema);
-			remarkHtml= "<span id='image_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style=';white-space:nowrap;'>" +
+			remarkHtml= "<span id='image_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span class='span'>" +
 			"(备注:" +items+")</span></span>";	
+			remarkColor(remarkHtml);
 		}
 		RemarkList(remarkHtml,remarks);		
 		$.each(data.urls, function(idx, item){
@@ -454,10 +435,7 @@ function ImageDataItemProc(id,data){
 			html=remarkHtml+"<br/><br/>";
 			for (var i = 1; i < items.length; i++) {
 				imageid+=1;
-				//<div id='sid_"+i+"' style='margin-left:20px;'>  <div id='div_pop_"+i+"' style='display:none;'>
-				html+="<img id='img_"+imageid+"' data-original='FileServlet?imageid="+items[i]+"' src='FileServlet?imageid="+items[i]+"' " +
-						"style='border:1px; solid #BFD4DA;width:285px;height:200px;margin-left:20px;" +
-						"float:left;margin-bottom:20px;'/ >";   	
+			html+="<img id='img_"+imageid+"' data-original='FileServlet?imageid="+items[i]+"' class='vode'  src='FileServlet?imageid="+items[i]+"'/ >";   	
 			}
 		});	
 	    return html;
@@ -475,39 +453,38 @@ function showImage(){
 function TimeDataItemProc(id,data){
 	var html = "";
 	var remarkHtml = "";
-	var rema="";
-	var remarks="";
+	//var remarks="";
 	 if (data.remark != null && data.remark != ""){
 		 remarkLength(data.remark);
 		 items = cleanRemark(rema);
 		 remarks=data.remark;
-			 rema= "<span id='Time_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;'>" +
+			 rema= "<span id='Time_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span class='span'>" +
 				"(备注:" +items+")</span></span>";	
+			 remarkColor(rema);
 			}
-	 html+= "<span  class=\"float\"><span style='white-space:nowrap;weith:80px;'>"+data.time+""+rema+"</span></span>"+"<br/>";	
 	 RemarkList(rema,remarks);
-	 
+	 html+= "<span  class=\"float\"><span style='white-space:nowrap;weith:80px;'>"+data.time+""+rema+"</span></span>"+"<br/>";	 
 	 return html;
 }
 //浮点数
 function FloatDataItemProc(id, data){
 	var html = "";
 	var remarkHtml = "";
-	var rema=""
 		var remarks="";
 	 if (data.remark != null && data.remark != ""){
 		 remarkLength(data.remark);
-		   items=cleanRemark(data.remark);	
+		   items=cleanRemark(rema);	
 		   remarks=data.remark;
-			 rema= "<span id='float_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;'>" +
-				"(备注:" +items+")</span></span>";	
+			 rema= "<span id='float_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span class='span'>" +
+				"(备注:" +items+")</span></span>";
+			  remarkColor(rema);
 			}
 	 RemarkList(rema,remarks);
-	 html+= "<span  class=\"float\"><span style='white-space:nowrap;weith:80px;'>"+data.value+""+rema+"</span>"+data.unit+"</span>"+"<br/>";	
-	
-	 
+	 html+= "<span  class=\"float\"><span >"+data.value+""+rema+"</span>"+data.unit+"</span>"+"<br/>";	
+	//style='white-space:nowrap;weith:80px;'
 	 return html;
 }
+
 //三维模型
 function D3DataItemProc(id, data){
 var html="";
@@ -517,8 +494,9 @@ var remarkHtml="";
 		 remarkLength(data.remark);
 			items=cleanRemark(rema);
 			remarks=data.remark;
-			remarkHtml= "<span id='D3D_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;'>" +
+			remarkHtml= "<span id='D3D_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span class='span'>" +
 				"(备注:" +items+")</span></span>";	
+			remarkColor(remarkHtml);
 			}
 	 RemarkList(remarkHtml,remarks);
  html=remarkHtml+"<br/><br/>";
@@ -527,13 +505,12 @@ $.each(data.link, function(idx, item){
 	//按';'循环截取
 	var items=new Array();
 	items=item.split(";");	
-	for (var i = 1; i <items.length; i++) {	
-		 html += "<div id='3D_"+i+"' style='margin-bottom:20px;margin-left:20px;overflow:scroll;'>"
-			+ "<embed src=\"\D3DServlet?D3Did="+items[i]+"\" width=\"80%\" height=\"400\" "
-			+" type=\"application/x-cortona\" " +
-					"vrml_background_color=\"#f7f7f9\" vrml_dashboard=\"true\" " +
-					" contextmenu=\"true\" vrml_splashscreen=\"false\" " +
-					" pluginspage=\"http://www.cortona3d.com/cortona\"></div>";	
+	for (var i = 1; i <items.length; i++) {		 
+		  html += "<div id='3D_"+i+"' class='marginleft'>"
+		  		+ "<embed  src=\"\D3DServlet?D3Did="+items[i]+"\" width=\"80%\" height=\"400\" "
+				+" type=\"application/x-cortona\" vrml_background_color=\"#f7f7f9\">" 
+				+"</div>"
+				
 	}
 	// vrml_background_color=\"#f7f7f9\" vrml_dashboard=\"true\"     contextmenu=\"true\" vrml_splashscreen=\"false\"  pluginspage=\"http://www.cortona3d.com/cortona\"
 });
@@ -545,19 +522,15 @@ function RichTextDataItemProc(id,data){
 	var remarks="";
 	var remarkHtml="";
 	 if (data.remark != null && data.remark != ""){
-//		 remalength=data.remark;
-//		 if(remalength>30)
-//			 rema=data.remark.substring(0,30)+"....";
-//		 else
-//		 rema=data.remark;
 		 remarkLength(data.remark);
 			items=cleanRemark(rema);
 			remarks=data.remark;
-		 remarkHtml= "<span id='float_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;'>" +
+		 remarkHtml= "<span id='rich_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span class='span'>" +
 				"(备注:" +items+")</span></span>";	
+		 remarkColor(remarkHtml);
 			}
 	    RemarkList(remarkHtml,remarks);
-    html+=remarkHtml+"<br/><br/><div style='margin-left:20px;border:1px; solid #BFD4DA;'>"
+    html+=remarkHtml+"<br/><br/><div class='marginleft'>"
     	+""+data.Text
     	+"</div>";
 	return html;
@@ -586,8 +559,9 @@ function TableDataItemProc(id, data){
 			items=cleanRemark(rema);
 			//alert(items)
 			remarks=data.remark;
-		 remarkHtml= "<span id='TableData_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span style='white-space:nowrap;'>" +
+		 remarkHtml= "<span id='TableData_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span class='span'>" +
 				"(备注:" +items+")</span></span>";	
+		 remarkColor(remarkHtml);
 			}
 	 RemarkList(remarkHtml,remarks)
 	 html+=remarkHtml+"</br></br>";
@@ -657,7 +631,7 @@ function getParents(list)
 {
 	var t = "";
 	$.each(list, function(idx, item){
-		t = item + " -> "
+		t = item + " ->"
 	});
 	return t;
 }
@@ -702,8 +676,91 @@ function RemarkList(remarkHtml,remarks){
 			});
 	 });
 }
+//移动到备注上显示下划线以及字体变颜色
+function remarkColor(rema){
+	 $(document).on('mouseenter','#'+$(rema).attr('id'),function(){
+		 $('#'+$(rema).attr('id')).css("color","red").css("text-decoration","underline");
+		 $('#'+$(rema).attr('id')).mouseleave(function(){
+			 $('#'+$(rema).attr('id')).css("color","").css("text-decoration",""); 
+		 });
+	 });
+}
 //替换备注中的<p></p>标签（换行）
 function cleanRemark(remark)
 {
 	return remark.replace(/<p>/g,"").replace(/<\/p>/g,"").replace(/<br>/g,"");
+}
+/*
+ * 点击之后添加一个新图表
+ * */
+var plotid = 0;
+
+function PlotAgain(id){
+	id = id.split("_")[0]
+	var ContainerId = id + "_target_plot_container";
+	var x = GetXAxis(ContainerId);
+	var data = GetPlotData(ContainerId, x);
+	if (data.length == 0)
+		return;
+	var newid = ContainerId + plotid ;
+	$("#" + id + "_plot").append("<div class=\"tab-pane fade\" id=\""+ newid +"\"></div>");
+	plotid += 1;
+	$('#' + newid).highcharts({
+		exporting:{
+			buttons:{
+				contextButton:{
+					menuItems:[{
+						text: '全选',
+						onclick: function(){
+							for(i = 0; i < this.series.length; i ++){
+								this.series[i].setVisible(true);
+							}
+						}
+					},
+					{
+						text: '全部取消',
+						onclick: function(){
+							for(i = 0; i < this.series.length; i ++){
+								this.series[i].setVisible(false);
+							}
+						}
+					},{
+						separator: true
+					}]
+					.concat(Highcharts.getOptions().exporting.buttons.contextButton.menuItems)
+				}
+			},
+			chartOptions:{
+				plotOptions:{
+					series:{
+						dataLabels:{
+							enabled: false
+						}
+					}
+				}
+			},
+			scale: 3,
+			fallbackToExportServer: false
+				
+		},
+		title: {
+			text : ""
+		},
+	    xAxis: {
+	    },
+	    yAxis: {
+	        plotLines: [{
+	            value: 0,
+	            width: 1,
+	            color: '#808080'
+	        }]
+	    },
+	    legend: {
+	        layout: 'vertical',
+	        align: 'right',
+	        verticalAlign: 'middle',
+	        borderWidth: 0
+	    },
+	    series:  data
+	});
 }

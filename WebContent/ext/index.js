@@ -47,7 +47,6 @@ function initwelcome(){
 
 function RadioClick(obj){
 	var tokens = $(obj)[0].name.split("_")
-	
 	var ContainerId = tokens[1] + "_plot_container";
 	var x = GetXAxis(ContainerId);
 	PlotOneContainer(ContainerId, x);

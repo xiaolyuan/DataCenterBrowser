@@ -1,7 +1,5 @@
 package cn.edu.buaa.dcb.model;
 
-import java.util.List;
-
 public class SchemaData { 
 	
 	private int schemaId;

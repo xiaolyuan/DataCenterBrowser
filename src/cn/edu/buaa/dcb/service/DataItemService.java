@@ -49,27 +49,10 @@ public class DataItemService {
 		System.out.println(url);
 		String jsonString = httpClientUtils.getDoGetURL(url, charset);	
 		BaseDataItem[] baseDataItems = gson.fromJson(jsonString, BaseDataItem[].class); 
-		for (BaseDataItem baseDataItem : baseDataItems) {
-			if(baseDataItem.type==6){	
-				
-		int adminId=baseDataItem.id;
-		String url1 = Utility.getParameter("db_url")+"case/id/"+adminId+"?action=get";
-		System.out.println(url1);
-		String j=httpClientUtils.getDoGetURL(url1, charset);
-		System.out.println(j);
-		//new TypeToken<List<SchemaData>>(){}.getType()
-			BaseDataItem[] ba=gson.fromJson(j,BaseDataItem[].class);
-			List<DataItem> dataItems = new ArrayList<DataItem>();
-			generateDataItem(dataItems,  ba);	
-			List<ExtTreeNode> extTreeNodes = generateExtTreeNode(ba);	
-			HashMap<String, Object> result = new HashMap<String, Object>();
-			result.put("TreeNode", extTreeNodes);
-			result.put("DataItem", dataItems);	
-			return result;	
-		}}
 		List<DataItem> dataItems = new ArrayList<DataItem>();
 		generateDataItem(dataItems, baseDataItems);	
 		List<ExtTreeNode> extTreeNodes = generateExtTreeNode(baseDataItems);	
+		System.out.println(extTreeNodes.size());
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("TreeNode", extTreeNodes);
 		result.put("DataItem", dataItems);	
@@ -200,7 +183,7 @@ public class DataItemService {
 				List<ExtTreeNode> tempNodes =  generateExtTreeNode(baseDataItem.children.toArray(temp));
 				for (ExtTreeNode extTreeNode2 : tempNodes) {
 					extTreeNode.Add(extTreeNode2);
-			}
+			      }
 				}
 			extTreeNodes.add(extTreeNode);
 		}

@@ -49,7 +49,6 @@ public class D3DServlet extends HttpServlet {
 //		System.out.println(imgTypeStr);
 		
 		for (int i = 0; i < arrayfileName.length; i++) {
-			 //if(imgTypeStr.equals(".txt") ||imgTypeStr.equals(".xlsx")||imgTypeStr.equals(".xlsx")){
 			
 			String filePath="D:\\cw_upload\\3D\\"+arrayfileName[i];		
 		        System.out.println(filePath);

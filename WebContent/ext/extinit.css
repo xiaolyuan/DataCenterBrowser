@@ -10,26 +10,22 @@ span.float span{
 
 .lineheight{
 	line-height:1.7;
-	border:1px; 
-	solid #BFD4DA;
+	/* border:1px solid #BFD4DA;*/	
 	margin-left:10px;
+	
 }
 
 .marginleft{
 	margin-left:20px;
-	border:1px;
-	 solid #BFD4DA;
-	 margin-bottom:20px;
+	/* border:1px solid #BFD4DA; */
+	line-height:1.7;
+	/* margin-bottom:20px; */
 }
 .vode{
 	width:285px;
 	height:200px;
-	margin-left:20px;
-	margin-bottom:20px;
-    float:left;
-    margin-left:20px;
-	border:1px;
-	solid #BFD4DA;
+	margin-left:30px;
+	/* border:1px solid #BFD4DA; */
 	margin-bottom:20px
 }
 #whleft{

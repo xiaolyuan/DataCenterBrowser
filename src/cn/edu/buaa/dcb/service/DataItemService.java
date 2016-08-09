@@ -27,22 +27,12 @@ public class DataItemService {
 	HttpClientUtils httpClientUtils = new HttpClientUtils();
 	String charset = "utf8";
 	Gson gson = new Gson();
-	public HashMap<String, Object> getDataItem(String nodeid){
-		//TODO: 通过nodeid判断是数据库还是实例。如果是实例，保持不变，如果是数据库，获取数据库下面的实例。
-		if (nodeid != null) // 如果nodeid是实例
-			return this.getDataItemByIns(nodeid);
-		else
-		{
-			//TODO 如果数据库，获取实例nodeid，（list）。在拼接	
-			return null;
-		}
-	}
 	/**
 	 * 
 	 * @param nodeid
 	 * @return
 	 */
-	public HashMap<String, Object> getDataItemByIns(String nodeid){
+	public HashMap<String, Object> getDataItem(String nodeid){
 		//TODO: 以后根据nodeid进行拼接url	
 		String url = Utility.getParameter("db_url") + nodeid.replace("|", "&")+ "?action=get";
 //		String url = "http://202.112.140.210/CooperateWeb/case/name/数据库分类1&数据库1/case/name/实例分类1&实例1";
@@ -51,8 +41,7 @@ public class DataItemService {
 		BaseDataItem[] baseDataItems = gson.fromJson(jsonString, BaseDataItem[].class); 
 		List<DataItem> dataItems = new ArrayList<DataItem>();
 		generateDataItem(dataItems, baseDataItems);	
-		List<ExtTreeNode> extTreeNodes = generateExtTreeNode(baseDataItems);	
-		System.out.println(extTreeNodes.size());
+		List<ExtTreeNode> extTreeNodes = generateExtTreeNode(baseDataItems);			
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("TreeNode", extTreeNodes);
 		result.put("DataItem", dataItems);	

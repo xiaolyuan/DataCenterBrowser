@@ -1,5 +1,4 @@
 Ext.BLANK_IMAGE_URL = 'resources/s.gif';
-
 Docs = {};
 
 ApiPanel = function() {
@@ -25,14 +24,13 @@ ApiPanel = function() {
 			clearOnLoad: false
 		}),
         root: new Ext.tree.AsyncTreeNode({
-            text:'Ext JS',
-            id:'root',
             expanded:true,
-            leaf:true,
-            
-           children:[Docs.classData]
-
+            text:'Ext JS',
+            id:'root',    
+            leaf:true,  
+            children:[Docs.classData]
          }),
+         
         collapseFirst:false
     });
     // no longer needed!
@@ -52,17 +50,7 @@ ApiPanel = function() {
           
     });
 };
-
 Ext.extend(ApiPanel, Ext.tree.TreePanel, {
-	//store:MainPanel.items.items[0].body,
-//	listeners:{
-//        click : function(node,e){
-//        	$.each(ApiPanel,function(){});
-//        	//Ext.Msg.alert(html);
-//                alert(node.text); 
-//        },
-//renderTo:Ext.getBody(),
-//},
     initComponent: function(){
         this.hiddenPkgs = [];
         Ext.apply(this, {
@@ -148,6 +136,7 @@ Ext.extend(ApiPanel, Ext.tree.TreePanel, {
 
             this.selectPath('/root/apidocs/'+res.join('/'));
         }
+        this.expandAll();
     }
 });
 
@@ -276,31 +265,6 @@ MainPanel = function(){
             autoScroll: true,
             items : addPanel(),
         },
-//        tbar:[ 
-//new Ext.Toolbar( [ {// 创建GridPanel的工具栏组件  
-//  id:'test',
-//  xtype: 'textfield',
-//  emptyText:'请输入你要搜索的内容',
-//  //handler : '', 
-//}, {  
-//	text : '搜索', 
-//	icon:Ext.MessageBox.QUESTION,
-//  handler :function(e){ 	        	
-//  	var text=Ext.getCmp('test').getValue();
-//  	if(text==null || text==""){
-//  		Ext.Msg.alert("提示","请输入你要查询的数据~!");
-//  	}else{
-//  	Ext.Msg.alert("提示","你要查询的是:"+text);
-//  }  
-//} }
-////, '-','查询：',' ', new Ext.ux.form.SearchField({  
-//// // store : userStore,  
-////  width : 110  
-////})  
-//
-//]),
-//],	  
-
 });
 };
 
@@ -332,67 +296,67 @@ Ext.extend(MainPanel, Ext.TabPanel, {
     },
 
     //点击后加载
-    loadClass : function(href, cls, member){
-     var id = 'docs-' + cls;
-        var tab = this.getComponent(id);
-        if(tab){
-            this.setActiveTab(tab);
-            if(member){
-                tab.scrollToMember(member);
-            }
-        }else{
-            var autoLoad = {url: href};
-            if(member){
-                autoLoad.callback = function(){
-                    Ext.getCmp(id).scrollToMember(member);
-                }
-            }
-            var p = this.add(new DocPanel({
-                id: id,
-                cclass : cls,
-                autoLoad: autoLoad,
-                iconCls: Docs.icons[cls]
-            }));
-            this.setActiveTab(p);
-        }
-    },
-	
-	initSearch : function(){
-		// Custom rendering Template for the View
-	    var resultTpl = new Ext.XTemplate(
-	        '<tpl for=".">',
-	        '<div class="search-item">',
-	            '<a class="member" ext:cls="{cls}" ext:member="{member}" href="output/{cls}.html">',
-				'<img src="../resources/images/default/s.gif" class="item-icon icon-{type}"/>{member}',
-				'</a> ',
-				'<a class="cls" ext:cls="{cls}" href="output/{cls}.html">{cls}</a>',
-	            '<p>{doc}</p>',
-	        '</div></tpl>'
-	    );
-		
-		var p = new Ext.DataView({
-            applyTo: 'search',
-			tpl: resultTpl,
-			loadingText:'Searching...',
-            store: this.searchStore,
-            itemSelector: 'div.search-item',
-			emptyText: '<h3>Use the search field above to search the Ext API for classes, properties, config options, methods and events.</h3>'
-        });
-	},
-	
-	doSearch : function(e){
-		var k = e.getKey();
-		if(!e.isSpecialKey()){
-			var text = e.target.value;
-			if(!text){
-				this.searchStore.baseParams.q = '';
-				this.searchStore.removeAll();
-			}else{
-				this.searchStore.baseParams.q = text;
-				this.searchStore.reload();
-			}
-		}
-	}
+//    loadClass : function(href, cls, member){
+//     var id = 'docs-' + cls;
+//        var tab = this.getComponent(id);
+//        if(tab){
+//            this.setActiveTab(tab);
+//            if(member){
+//                tab.scrollToMember(member);
+//            }
+//        }else{
+//            var autoLoad = {url: href};
+//            if(member){
+//                autoLoad.callback = function(){
+//                    Ext.getCmp(id).scrollToMember(member);
+//                }
+//            }
+//            var p = this.add(new DocPanel({
+//                id: id,
+//                cclass : cls,
+//                autoLoad: autoLoad,
+//                iconCls: Docs.icons[cls]
+//            }));
+//            this.setActiveTab(p);
+//        }
+//    },
+//	
+//	initSearch : function(){
+//		// Custom rendering Template for the View
+//	    var resultTpl = new Ext.XTemplate(
+//	        '<tpl for=".">',
+//	        '<div class="search-item">',
+//	            '<a class="member" ext:cls="{cls}" ext:member="{member}" href="output/{cls}.html">',
+//				'<img src="../resources/images/default/s.gif" class="item-icon icon-{type}"/>{member}',
+//				'</a> ',
+//				'<a class="cls" ext:cls="{cls}" href="output/{cls}.html">{cls}</a>',
+//	            '<p>{doc}</p>',
+//	        '</div></tpl>'
+//	    );
+//		
+//		var p = new Ext.DataView({
+//            applyTo: 'search',
+//			tpl: resultTpl,
+//			loadingText:'Searching...',
+//            store: this.searchStore,
+//            itemSelector: 'div.search-item',
+//			emptyText: '<h3>Use the search field above to search the Ext API for classes, properties, config options, methods and events.</h3>'
+//        });
+//	},
+//	
+//	doSearch : function(e){
+//		var k = e.getKey();
+//		if(!e.isSpecialKey()){
+//			var text = e.target.value;
+//			if(!text){
+//				this.searchStore.baseParams.q = '';
+//				this.searchStore.removeAll();
+//			}else{
+//				this.searchStore.baseParams.q = text;
+//				this.searchStore.reload();
+//			}
+//		}
+//	}
 });
 
 function hideHightlight(id){
@@ -400,36 +364,25 @@ function hideHightlight(id){
 }
 
 Ext.onReady(function(){
-
+	Ext.BLANK_IMAGE_URL = 'resources/s.gif';
     Ext.QuickTips.init();
-
     var api = new ApiPanel();
     var mainPanel = new MainPanel();
-
     api.on('click', function(node, e){
-    	alert(node.id);
     	var id = node.id;
-    	id = 'docs-' + id + '_target';
+    	id = 'docs-' + id;
     	var body = mainPanel.items.items[0].body;	
-    	 var el = Ext.fly(id);
-    	alert(el);
+    	var el = Ext.fly(id);
         if(el){
             var top = (el.getOffsetsTo(body)[1]) + body.dom.scrollTop;
-           // alert(top);
             //body.scrollTo('top', top-25, {duration:0.1, callback: this.hlMember.createDelegate(this, [member])});
-            body.scrollTo('top', top-25, {duration:0.1});
-            $("#" + id).css("background-color", "rgb(255, 255, 100)");
-           // setTimeout(function() {return hideHightlight(id)}, 1500);
+            body.scrollTo('top', top-8, {duration:0.1});
+           // $("#" + body).css("background-color", "rgb(255, 255, 100)");
+            $("#"+id).css("background-color","RGB(200,222,100)");
+            setTimeout(function() {return hideHightlight(id)}, 500);
             
         }
     });
-
-//    mainPanel.on('tabchange', function(tp, tab){
-//        api.selectClass(tab.cclass); 
-//    });
-
-//    addPanel(mainPanel);
-    
     var viewport = new Ext.Viewport({
         layout:'border',
         items:[ {
@@ -457,20 +410,28 @@ Ext.onReady(function(){
             tooltip: 'Collapse All',
             handler: function(){ api.root.collapse(true); },
             scope: this
+        },{
+        	iconCls:'icon-config',
+        	tooltip:"隐藏空属性项",
+        	handler:"",
+        	scope:this
         }
 		 ]
 	});
-    
     viewport.doLayout();  
    
 	setTimeout(function(){
         Ext.get('loading').remove();
-        Ext.get('loading-mask').fadeOut({remove:true});
+       // Ext.get('loading-mask').fadeOut({remove:true});
     }, 250);
 	
 	//PlotContainer();
 	
-//	addPuxiData();
+	//播放所有的视频
+	playAllVideo();
+	
+	//图片弹出层
+	showImage();
 });
 
 
@@ -724,30 +685,5 @@ Ext.Ajax.on('requestcomplete', function(ajax, xhr, o){
         urchinTracker(o.url);
     }
 });
-Local = function(){
-	Ext.MessageBox.show({
-	    title: '加载窗口',
-	    msg: '详细信息内容',
-	    progressText: '加载中...',
-	    width: 300,
-	    progress: true,
-	    closable: false,
-	});
-	//加载环境
-	var f = function (v) {
-	    return function () {
-	        if (v == 12) {
-	            Ext.MessageBox.hide();
-	           // Ext.Msg.alert("提示", "加载完毕！");   
-	        } else {
-	            var i = v / 11;
-	            Ext.MessageBox.updateProgress(i, Math.round(100 * i) + '% 完成');
-	        }
-	    };
-	};
-	for (var i = 1; i < 13; i++) {
 
-	    setTimeout(f(i), i * 200);
-	};
-	}
 

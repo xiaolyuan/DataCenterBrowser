@@ -64,7 +64,9 @@
 	color: #083772;
 	text-decoration: none;
 }
-
+.sig{
+	margin-bottom:10px;
+}
 .body-wrap a:visited {
    color: #1e4e8f;
 	text-decoration: none;
@@ -136,37 +138,37 @@
 	width:100%;
 	margin-bottom:10px;
 }
-.body-wrap .member-table td{
+.body-wrap #member-table span{
 	padding:4px;
 	vertical-align:top;
 	padding-right:15px;
 }
-.body-wrap .member-table td.sig {
+.body-wrap .member-table span.sig {
     padding-left:7px;
 }
 .body-wrap  .alt{
 	/*background:#f1f1f1;*/
 }
-.body-wrap .member-table td.micon{
+.body-wrap #member-table span.micon{
 	width:16px;
 	padding:0px;
     background: #f9f9f9 url(expand-bg.gif) repeat-y top right;
     border-right:1px solid #d0d0d0;
 }
-.body-wrap .member-table td.micon-blue{
+.body-wrap #member-table span.micon-blue{
 	width:16px;
 	padding:0px;
     background: #f9f9f9 url(expand-bg-over.gif) repeat-y top right;
     border-right:1px solid #d0d0d0;
 }
-.body-wrap .member-table td.micon a {
+.body-wrap #member-table span.micon a {
     display:block;
     height:1px;
     width:1px;
     overflow:hidden;
     cursor:default;
 }
-.body-wrap .member-table .expandable td.micon a {
+.body-wrap #member-table .expandable span.micon a {
     display:block;
     width:98%;
     height:30px;
@@ -182,9 +184,9 @@
 	font-weight:bold;
 }
 
-.member-table {
-    border:1px solid #d0d0d0;
-}
+/* #member-table {
+    border:0.5px solid #D6DADB;
+} */
 .member-table tr.inherited td.msource{
 	background-image: url(inherited.gif);
 	background-position:2px 4px;

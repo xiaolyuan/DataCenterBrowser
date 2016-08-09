@@ -3,7 +3,7 @@
 	针对ext进行初始化
 	@author: Shaohan
 */
-
+var data;
 function initwelcome(){
 	$.ajaxSetup({
 		async : false
@@ -16,35 +16,46 @@ function initwelcome(){
 	
 	var nodeid = getUrlParam("nodeid");
 	nodeid = stringToBytes(nodeid);
-	
-	var data;
-	
 	$.getJSON("/DataCenterBrowser/ExtData?nodeid=" + nodeid, function(data1){
 		data = data1;
 	});
-
-	
 	var html = "";
 	if (data == null){
 		alert("没有数据");
 		return html;
-	}
-		//加载
-	 // Local();
+	}	
 	Docs.classData.children = data.TreeNode;
 	
-	html = "<div xmlns:ext='http://www.extjs.com' class='body-wrap'>" 
-		+"<table id='docs-table' cellspacing=\"0\" class=\"member-table\"><tbody>";
+//	html = "<div xmlns:ext='http://www.extjs.com' class='body-wrap'>" 
+		html="<div id='docs-table' cellspacing=\"0\">";
 	$.each(data.DataItem, function(idx, item){
 		html += ExtDataItemProc(item);
-		
 	});
-	html += "</tbody></table></div>";
-	
+	html += "</div>";
 	return html;
-	
- }
 
+	}
+//$(function(){
+//var index=1;
+//loadData();
+//$(window).scroll(function(){
+//	var pa=$(this).scrollTop()+20>=$(document).height()-$(this).height();
+//	if(index>2){
+//		$(".body-wrap").append("加载ok");
+//		$(this).off("scroll");
+//	}
+//	if(pa){
+//		loadData();
+//	}
+//});
+//
+//function loadData(){
+//index ++;
+//$.get("",function(data){
+//  $("#tbodyId").append(data);
+//});
+//}
+//})
 function RadioClick(obj){
 	var tokens = $(obj)[0].name.split("_")
 	var ContainerId = tokens[1] + "_plot_container";

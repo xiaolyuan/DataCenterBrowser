@@ -64,9 +64,6 @@
 	color: #083772;
 	text-decoration: none;
 }
-.sig{
-	margin-bottom:10px;
-}
 .body-wrap a:visited {
    color: #1e4e8f;
 	text-decoration: none;
@@ -184,9 +181,9 @@
 	font-weight:bold;
 }
 
-/* #member-table {
+#member-table {
     border:0.5px solid #D6DADB;
-} */
+}
 .member-table tr.inherited td.msource{
 	background-image: url(inherited.gif);
 	background-position:2px 4px;
@@ -316,7 +313,9 @@ pre code i,pre code i b,pre code i em{
     background: transparent url(member-collapsed.gif) no-repeat 5px 6px;
     cursor:pointer;
 }
-
+ div .body-wrap{
+	border:1px solid #ECF0F0;
+}
 .expandable td.micon:hover a {
     background: transparent url(member-hover.gif) no-repeat 5px 6px;
     cursor:pointer;

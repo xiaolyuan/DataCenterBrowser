@@ -121,17 +121,13 @@ function ExtDataItemProc(dataItem)
 {
 	//var html = getLittletitle(dataItem.id, dataItem.title);
 
-	var html = "<div xmlns:ext='http://www.extjs.com' class='body-wrap' id='member-table'>" 
+	var html = "<div xmlns:ext='http://www.extjs.com' class='body-wrap'>" 
 //		+"<div  cellspacing=\"0\" class=\"member-table\">";
 	 html += "<div class=\"config-row \" id= 'docs-" 
 		+ dataItem.id + "'>"
 	switch(dataItem.type){ 
-		case "TitleDataItem":    
-			html += 
-				"<span class=\"micon-blue\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></span>"
-		    	+ "<span class=\"sig\" style=\"color:blue;\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
-				 +dataItem.title
-				+ " ";
+		case "TitleDataItem":  
+			html += "<span><em style='color:blue;'>"+ dataItem.title+"</em>:";
     	break; 
 	    case "SubtitleDataItem":
 	    	if (dataItem.parents == null)
@@ -144,48 +140,29 @@ function ExtDataItemProc(dataItem)
 	    	break; 
 	    	//图片
 	    case "ImageDataItem":
-	    	html += 
-	    		"<span class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></span>"
-	    		+ "<span class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
-				+ dataItem.title
-				+ " : ";
+	    	html += "<span><em>"+ dataItem.title+"</em>:";
 	    	html += ImageDataItemProc(dataItem.id, dataItem.data);
 	    	break;
 	    	//附件
 	    case "FileDataItem":
-	    	html += 
-	    		"<span class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></span>"
-	    		+ "<span class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
-				+ dataItem.title
-				+ " : ";
+	    	html += "<span><em>"+ dataItem.title+"</em>:";
 	    	html += FileDataItemProc(dataItem.id, dataItem.data);    	
 	    	break;
 	    	//文本
 	    case "TextDataItem":
-	    	html += 
-	    		"<span class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></span>"
-	    		+ "<span class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
-				+ dataItem.title
-				+ " : ";
+	    	html += "<span><em>"+ dataItem.title+"</em>:";
 	    	html += TextDataItemProc(dataItem.id, dataItem.data, dataItem.remark);
 	    	break;
 	    	//浮点数
 	    case "FloatDataItem":
-	    	html += 
-	    		"<span class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></span>"
-	    		+ "<span class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
-				+ dataItem.title
-				+ " : ";
+	    	html += "<span><em>"+ dataItem.title+"</em>:&nbsp;&nbsp;&nbsp;";
 	    	html+=dataItem.remark;
 	    	html += FloatDataItemProc(dataItem.id, dataItem.data, dataItem.remark);
+	    	
 	    	break;
 	    	//时间
 	    case"TimeDataItem":
-	    	html += 
-	    		"<span class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></span>"
-	    		+ "<span class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
-				+ dataItem.title
-				+ " : ";
+	    	html += "<span><em>"+ dataItem.title+"</em>:&nbsp;&nbsp;&nbsp;";
 	    	html += TimeDataItemProc(dataItem.id, dataItem.data);
 	    	break;
 	    case "RadioDataItem":
@@ -193,20 +170,12 @@ function ExtDataItemProc(dataItem)
 	    	break;
 	    	//视频
 	    case "RideoDataItem":
-	    	html += 
-	    		"<span class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></span>"
-	    		+ "<span class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
-				+ dataItem.title
-				+ " : ";
+	    	html += "<span><em>"+ dataItem.title+"</em>:";
 	    	html +=RideoDataItemProc(dataItem.id,dataItem.data);
 	    	break;
 	    	//链接
 	    case "UrlDataItem":
-	    	html += 
-	    		"<span class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></span>"
-	    		+ "<span class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
-				+ dataItem.title
-				+ " : ";
+	    	html += "<span><em>"+ dataItem.title+"</em>:";
 	    	html += UrlDataItemProc(dataItem.id, dataItem.data);
 	    	break;
 	    	//曲线
@@ -215,32 +184,17 @@ function ExtDataItemProc(dataItem)
 	    	break;
 	    	//三维模型
 	    case "D3DataItem":
-	    	html += 
-	    		"<span class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></span>"
-	    		+ "<span class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
-				 +dataItem.title
-				+ " : ";  	
+	    	html += "<span><em>"+ dataItem.title+"</em>:";
 	    	html += D3DataItemProc(dataItem.id, dataItem.data);
 	    	break;
 	    	//富文本
 	    case "RichTextDataItem":
-	    	html += 
-	    		"<span class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></span>"
-	    		+ "<span class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
-				 +dataItem.title
-				+ " : ";
-	    	
+	    	html += "<span><em>"+ dataItem.title+"</em>:";
 	    	 html +=RichTextDataItemProc(dataItem.id,dataItem.data); 
 	    	break;
 	    	//二维表
 	    case "TableDataItem":
-	    	html += 
-	    		"<span class=\"micon\"><a href=\"#expand\" class=\"exi\">&nbsp;</a></span>"
-	    		+ "<span class=\"sig\"><a id=\"Ext.grid.GridPanel-columnLines\"></a>"
-	    		+"<span style=\"color: blue; cursor:pointer;\" onclick='PlotAgain(\""+dataItem.id+"\")'>添加图表</span>" 
-	    		+ "&nbsp&nbsp&nbsp&nbsp"
-				+ dataItem.title
-				+ " : ";
+	    	html += "<span><span style=\"color: blue; cursor:pointer;\" onclick='PlotAgain(\""+dataItem.id+"\")'>添加图表</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>"+ dataItem.title+"</em>:";
 	    	html += TableDataItemProc(dataItem.id, dataItem.data);	
 	    	break;	
 	    default:
@@ -333,7 +287,6 @@ function FileDataItemProc(id, data){
 		 remarks=data.remark;
 		remarkHtml= "<span id='file_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span class='span'>" +
 		"(备注:" +items+")</span></span>";
-		//remarkColor(remarkHtml);	
 	}
 	 RemarkList(remarkHtml,remarks);
 	html=remarkHtml;
@@ -475,7 +428,10 @@ function FloatDataItemProc(id, data){
 			
 			}
 	 RemarkList(remarkHtml,remarks);
-	 html+= "<span  class=\"float\"><span >"+data.value+"</span>"+data.unit+"</span>"+remarkHtml+"<br/>";	
+	 html+= "<span  class=\"float\"><span >"+data.value+"</span>"+data.unit+"</span>"+remarkHtml+"<br/>";
+	 if(data.value==null||data.value==""){
+		//alert("浮点数为空");
+	 }
 	 return html;
 }
 
@@ -522,9 +478,9 @@ function RichTextDataItemProc(id,data){
 				"(备注:" +items+")</span></span>";
 			}
 	    RemarkList(remarkHtml,remarks);
-    html+=remarkHtml+"</br></br><div class='marginleft'>"
+    html+=remarkHtml+"</br></br><span class='marginleft'>"
     	+""+data.Text
-    	+"</div>";
+    	+"</span>";
 	return html;
 }
 
@@ -609,7 +565,7 @@ function TableDataItemProc(id, data){
 		+"        </table>"
 		+"   </div>"
 		+"<div>"
-		+"<span class=\"x-menu-text\" style=\"cursor:pointer; float: right;margin-bottom:30px;\" onclick='showmore(this)' id=\""+ tableid + "_btn\">"
+		+"<span class=\"x-menu-text\" style=\"cursor:pointer; float: right;\" onclick='showmore(this)' id=\""+ tableid + "_btn\">"
 		+"显示更多...</span>"
 		+"</div>"
 		+"   <div class=\"tab-pane fade\" id=\""+plotid+"\">"

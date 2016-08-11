@@ -4,6 +4,7 @@
 	@author: Shaohan
 */
 var data;
+var html = "";
 function initwelcome(){
 	$.ajaxSetup({
 		async : false
@@ -19,7 +20,7 @@ function initwelcome(){
 	$.getJSON("/DataCenterBrowser/ExtData?nodeid=" + nodeid, function(data1){
 		data = data1;
 	});
-	var html = "";
+	
 	if (data == null){
 		alert("没有数据");
 		return html;
@@ -27,35 +28,38 @@ function initwelcome(){
 	Docs.classData.children = data.TreeNode;
 	
 //	html = "<div xmlns:ext='http://www.extjs.com' class='body-wrap'>" 
-		html="<div id='docs-table' cellspacing=\"0\">";
+	//	html="<div id='docs-table' cellspacing=\"0\">";
 	$.each(data.DataItem, function(idx, item){
 		html += ExtDataItemProc(item);
 	});
-	html += "</div>";
+	//html+="</div>";
 	return html;
-
 	}
-//$(function(){
-//var index=1;
-//loadData();
-//$(window).scroll(function(){
-//	var pa=$(this).scrollTop()+20>=$(document).height()-$(this).height();
-//	if(index>2){
-//		$(".body-wrap").append("加载ok");
-//		$(this).off("scroll");
-//	}
-//	if(pa){
-//		loadData();
-//	}
-//});
-//
-//function loadData(){
-//index ++;
-//$.get("",function(data){
-//  $("#tbodyId").append(data);
-//});
-//}
-//})
+
+function show(){
+var index=1;
+$(window).scroll(function(){
+	var pa=$(this).scrollTop()+20>=$(document).height()-$(this).height();
+	if(index>2){
+		$(".body-wrap").append("加载ok");
+		$(this).off("scroll");
+	}
+	if(pa){
+		loadData()
+	}
+});
+};
+function loadData(){
+	index++;
+	$.each(data.DataItem, function(idx, item){
+		html += ExtDataItemProc(item);
+	});
+	$.get(html,function(data){
+  $(".body-wrap").append(data);
+});
+}
+
+
 function RadioClick(obj){
 	var tokens = $(obj)[0].name.split("_")
 	var ContainerId = tokens[1] + "_plot_container";

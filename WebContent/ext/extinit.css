@@ -1,7 +1,4 @@
-span.float span{
-	margin-right: 4px;
-    font-size: 13px;
-}
+
 
 .span{
 	cursor:pointer;
@@ -11,10 +8,13 @@ span.float span{
 .lineheight{
 	line-height:1.7;
 	/* border:1px solid #BFD4DA;*/	
-	margin-left:10px;
+	margin-left:20px;
 	
 }
 
+em{
+	font-weight:bold;
+}
 .marginleft{
 	margin-left:20px;
 	/* border:1px solid #BFD4DA; */
@@ -25,7 +25,7 @@ span.float span{
 	width:285px;
 	height:200px;
 	margin-left:30px;
-	/* border:1px solid #BFD4DA; */
+    border:1px solid #BFD4DA;
 	margin-bottom:20px
 }
 #whleft{

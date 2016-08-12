@@ -127,7 +127,7 @@ function ExtDataItemProc(dataItem)
 		+ dataItem.id + "'>"
 	switch(dataItem.type){ 
 		case "TitleDataItem":  
-			html += "<span><em style='color:blue;'>"+ dataItem.title+"</em>:";
+			html += "<span><em style='color:blue;'>"+ dataItem.title+"</em>";
     	break; 
 	    case "SubtitleDataItem":
 	    	if (dataItem.parents == null)

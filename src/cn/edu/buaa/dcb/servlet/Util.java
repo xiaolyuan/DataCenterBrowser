@@ -18,7 +18,7 @@ public class Util {
 		BufferedInputStream in = null;
 		try {
 			in = new BufferedInputStream(new FileInputStream(f));
-			int buf_size = 1024;
+			int buf_size = 4096;
 			byte[] buffer = new byte[buf_size];
 			int len = 0;
 			while (-1 != (len = in.read(buffer, 0, buf_size))) {

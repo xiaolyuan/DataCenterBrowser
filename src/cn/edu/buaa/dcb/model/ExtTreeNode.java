@@ -45,9 +45,9 @@ public class ExtTreeNode {
 		 children.add(extTreeNoede);
 		 leaf = false;
 		 expanded=true;
-//		 if(children.size()<3){
-//		 expanded=false; 
-//		 }
+		 if(children.size()<=1){
+		 expanded=false; 
+		 }
 		 
 	 }
 

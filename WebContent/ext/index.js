@@ -37,7 +37,7 @@ function initwelcome(){
 	}
 
 function show(){
-var index=1;
+	var index=1;
 $(window).scroll(function(){
 	var pa=$(this).scrollTop()+20>=$(document).height()-$(this).height();
 	if(index>2){

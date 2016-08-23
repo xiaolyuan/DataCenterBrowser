@@ -36,28 +36,28 @@ function initwelcome(){
 	return html;
 	}
 
-function show(){
-	var index=1;
-$(window).scroll(function(){
-	var pa=$(this).scrollTop()+20>=$(document).height()-$(this).height();
-	if(index>2){
-		$(".body-wrap").append("加载ok");
-		$(this).off("scroll");
-	}
-	if(pa){
-		loadData()
-	}
-});
-};
-function loadData(){
-	index++;
-	$.each(data.DataItem, function(idx, item){
-		html += ExtDataItemProc(item);
-	});
-	$.get(html,function(data){
-  $(".body-wrap").append(data);
-});
-}
+//function show(){
+//	var index=1;
+//$(window).scroll(function(){
+//	var pa=$(this).scrollTop()+20>=$(document).height()-$(this).height();
+//	if(index>2){
+//		$(".body-wrap").append("加载ok");
+//		$(this).off("scroll");
+//	}
+//	if(pa){
+//		loadData()
+//	}
+//});
+//};
+//function loadData(){
+//	index++;
+//	$.each(data.DataItem, function(idx, item){
+//		html += ExtDataItemProc(item);
+//	});
+//	$.get(html,function(data){
+//  $(".body-wrap").append(data);
+//});
+//}
 
 
 function RadioClick(obj){

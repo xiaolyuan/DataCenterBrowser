@@ -83,7 +83,7 @@ public class DataItemService {
 			}else if(baseDataItem.attributes.equals("链接")){
 				UrlDataItem urlDataItem=BaseData.getInstanceBaseData().new UrlDataItem();
 				List<String> strings= new ArrayList<>();
-				strings.add(baseDataItem.data_value);
+				strings.add(baseDataItem.value_hidden);
 				urlDataItem.remark=baseDataItem.remark_hidden;
 				urlDataItem.links=strings;
 				DataItem dataItem=new DataItem(baseDataItem.text, String.valueOf(baseDataItem.id), "", urlDataItem);

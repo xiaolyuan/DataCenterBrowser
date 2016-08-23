@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import cn.edu.buaa.dcb.service.Utility;
 /**
  * Servlet implementation class FileServlet
  */
@@ -50,7 +52,7 @@ public class D3DServlet extends HttpServlet {
 		
 		for (int i = 0; i < arrayfileName.length; i++) {
 			
-			String filePath="D:\\cw_upload\\3D\\"+arrayfileName[i];		
+			String filePath=Utility.getParameter("3D")+arrayfileName[i];		
 		        System.out.println(filePath);
 		
 		

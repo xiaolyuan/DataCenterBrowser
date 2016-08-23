@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+
+import cn.edu.buaa.dcb.service.Utility;
 /**
  * Servlet implementation class FileServlet
  */
@@ -57,7 +59,7 @@ public class FilenewServlet extends HttpServlet {
 		for (int i = 0; i < arrayfileName.length; i++) {
 			 //if(imgTypeStr.equals(".txt") ||imgTypeStr.equals(".xlsx")||imgTypeStr.equals(".xlsx")){
 			
-			String filePath="D:\\cw_upload\\file\\"+arrayfileName[i];		
+			String filePath=Utility.getParameter("id")+arrayfileName[i];		
 		        //System.out.println("D:\\cw_upload\\file\\"+arrayfileName[i]);
 		        System.out.println(filePath);
 		

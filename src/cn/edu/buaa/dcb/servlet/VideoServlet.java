@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import cn.edu.buaa.dcb.service.Utility;
 /**
  * Servlet implementation class FileServlet
  */
@@ -46,7 +48,7 @@ public class VideoServlet extends HttpServlet {
 //		System.out.println(imgTypeStr);
 		
 		for (int i = 0; i < arrayfileName.length; i++) {						
-			String filePath="D:\\cw_upload\\video\\"+arrayfileName[i];		
+			String filePath=Utility.getParameter("video")+arrayfileName[i];		
 		        System.out.println(filePath);
 		
 		

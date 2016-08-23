@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 
+import cn.edu.buaa.dcb.service.Utility;
+
 /**
  * Servlet implementation class FileServlet
  */
@@ -33,7 +35,7 @@ public class FileServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//request.setCharacterEncoding("UTF-8");
-		String fileid = request.getParameter("imageid");
+		String  fileid = request.getParameter("imageid");
 		//String fileid = new String(request.getParameter("imageid").getBytes("iso-8859-1"),"utf-8");
 		responseString(response, fileid);
 	}
@@ -56,12 +58,12 @@ public class FileServlet extends HttpServlet {
 		String imgTypeStr=fileName.substring(imgType);
 		System.out.println(imgTypeStr);*/
 		
-		
+	
 		 //String fPath="D:\\cw_upload\\file\\";	
 		for (int i = 0; i < arrayfileName.length; i++) {
 			//if(imgTypeStr.equals(".jpg")||imgTypeStr.equals(".bmp")||imgTypeStr.equals(".gif")||imgTypeStr.equals(".jpeg")||imgTypeStr.equals(".png")||imgTypeStr.equals(".swf")){
-			String	filePath="D:\\cw_upload\\image\\"+arrayfileName[i];
-		
+			String filePath=Utility.getParameter("image")+arrayfileName[i];
+			
 		System.out.println(filePath);
 		
 		// TODO: 根据fileid得到filePath,

@@ -120,8 +120,7 @@ function GetPlotData(ContainerId, xaxis){
 function ExtDataItemProc(dataItem)
 {
 	//var html = getLittletitle(dataItem.id, dataItem.title);
-
-	var html = "<div xmlns:ext='http://www.extjs.com' class='body-wrap'>" 
+	var html = "<div xmlns:ext='http://www.extjs.com' class='body-wrap' id='data-"+dataItem.id+"'>" 
 //		+"<div  cellspacing=\"0\" class=\"member-table\">";
 	 html += "<div class=\"config-row \" id= 'docs-" 
 		+ dataItem.id + "'>"
@@ -157,8 +156,7 @@ function ExtDataItemProc(dataItem)
 	    case "FloatDataItem":
 	    	html += "<span><em>"+ dataItem.title+"</em>:&nbsp;&nbsp;&nbsp;";
 	    	html+=dataItem.remark;
-	    	html += FloatDataItemProc(dataItem.id, dataItem.data, dataItem.remark);
-	    	
+	    	html += FloatDataItemProc(dataItem.id, dataItem.data, dataItem.remark); 	
 	    	break;
 	    	//时间
 	    case"TimeDataItem":
@@ -190,7 +188,7 @@ function ExtDataItemProc(dataItem)
 	    	//富文本
 	    case "RichTextDataItem":
 	    	html += "<span><em>"+ dataItem.title+"</em>:";
-	    	 html +=RichTextDataItemProc(dataItem.id,dataItem.data); 
+	    	html +=RichTextDataItemProc(dataItem.id,dataItem.data); 
 	    	break;
 	    	//二维表
 	    case "TableDataItem":
@@ -411,7 +409,10 @@ function TimeDataItemProc(id,data){
 				"(备注:" +items+")</span></span>";	
 			}
 	 RemarkList(remarkHtml,remarks);
-	 html+= "<span  class=\"float\"><span>"+data.time+""+remarkHtml+"</span></span>"+"<br/>";	 
+	 html+= "<span  class=\"float\"><span>"+data.time+""+remarkHtml+"</span></span>"+"<br/>";
+		if(data.time==null||data.time==""){		
+			alert("时间为空");		
+		}
 	 return html;
 }
 //浮点数
@@ -425,13 +426,9 @@ function FloatDataItemProc(id, data){
 		   remarks=data.remark;
 		   remarkHtml= "<span id='float_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span class='span'>" +
 				"(备注:" +items+")</span></span>";
-			
 			}
 	 RemarkList(remarkHtml,remarks);
 	 html+= "<span  class=\"float\"><span >"+data.value+"</span>"+data.unit+"</span>"+remarkHtml+"<br/>";
-	 if(data.value==null||data.value==""){
-		//alert("浮点数为空");
-	 }
 	 return html;
 }
 
@@ -489,10 +486,15 @@ function UrlDataItemProc(id, data){
 	var html="";
 	if (data.remark != null && data.remark != "")
 	html = "&nbsp&nbsp&nbsp&nbsp<span style=''>(备注：" + data.remark + ")</span>";
-	 html += "<a href='http://www.baidu.com'>www.baidu.com</a>";
-//	$.each(data.links, function(idx, item){
-//		html += "<p><a>"+item+"</a></p>";
-//	});
+	// html += "<a href='http://www.baidu.com'>www.baidu.com</a>";
+	$.each(data.links, function(idx, item){
+		var items=new Array();
+		items=item.split(",");
+		for (var i = 0; i < items.length; i++) {
+			html += "<p class='lineheight'><a href='http://123.57.52.25:8080/DataCenterBrowser/ie.html?nodeid=case/id/"+items[i]+"'>"+items[i]+"</a></p>";
+		}
+		
+	});
   	return html;
 }
 //二维表

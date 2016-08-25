@@ -29,7 +29,7 @@ function initwelcome(){
 	
 //	html = "<div xmlns:ext='http://www.extjs.com' class='body-wrap'>" 
 	//	html="<div id='docs-table' cellspacing=\"0\">";
-	$.each(data.DataItem, function(idx, item){
+	$.each(data.DataItem, function(idx, item){		
 		html += ExtDataItemProc(item);
 	});
 	//html+="</div>";

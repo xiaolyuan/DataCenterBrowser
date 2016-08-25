@@ -60,9 +60,8 @@ public class FileServlet extends HttpServlet {
 		
 	
 		 //String fPath="D:\\cw_upload\\file\\";	
-		for (int i = 0; i < arrayfileName.length; i++) {
-			//if(imgTypeStr.equals(".jpg")||imgTypeStr.equals(".bmp")||imgTypeStr.equals(".gif")||imgTypeStr.equals(".jpeg")||imgTypeStr.equals(".png")||imgTypeStr.equals(".swf")){
-			String filePath=Utility.getParameter("image")+arrayfileName[i];
+		for (int i = 0; i < arrayfileName.length; i++) {	
+		String filePath=Utility.getParameter("image")+arrayfileName[i];
 			
 		System.out.println(filePath);
 		

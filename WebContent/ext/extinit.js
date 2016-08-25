@@ -410,9 +410,6 @@ function TimeDataItemProc(id,data){
 			}
 	 RemarkList(remarkHtml,remarks);
 	 html+= "<span  class=\"float\"><span>"+data.time+""+remarkHtml+"</span></span>"+"<br/>";
-		if(data.time==null||data.time==""){		
-			alert("时间为空");		
-		}
 	 return html;
 }
 //浮点数

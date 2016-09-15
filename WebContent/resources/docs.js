@@ -377,10 +377,8 @@ Ext.onReady(function(){
             var top = (el.getOffsetsTo(body)[1]) + body.dom.scrollTop;
             //body.scrollTo('top', top-25, {duration:0.1, callback: this.hlMember.createDelegate(this, [member])});
             body.scrollTo('top', top-8, {duration:0.1});
-           // $("#" + body).css("background-color", "rgb(255, 255, 100)");
             $("#"+id).css("background-color","RGB(200,222,100)");
-            setTimeout(function() {return hideHightlight(id)}, 500);
-            
+            setTimeout(function() {return hideHightlight(id)}, 500);  
         }
     });
     var viewport = new Ext.Viewport({
@@ -413,7 +411,26 @@ Ext.onReady(function(){
         },{
         	iconCls:'icon-config',
         	tooltip:"隐藏空属性项",
-        	handler:"",
+        	handler:function(){	
+        		$("#data-1235").css("display","none");
+        		$("#data-1236").css("display","none");
+        	    $("#data-1237").css("display","none");
+        	    $("#data-1238").css("display","none");	
+        	    $("#data-1239").css("display","none");
+        	    $("#data-1240").css("display","none");
+        	},
+        	scope:this
+        },{
+        	iconCls:'icon-config',
+        	tooltip:"显示空属性项",
+        	handler:function(){
+        		$("#data-1235").css("display","block");
+        	    $("#data-1236").css("display","block");
+        	    $("#data-1237").css("display","block");
+        	    $("#data-1238").css("display","block");	
+        	    $("#data-1239").css("display","block");
+        	    $("#data-1240").css("display","block");
+        	},
         	scope:this
         }
 		 ]
@@ -428,13 +445,12 @@ Ext.onReady(function(){
 	//PlotContainer();
 	
 	//播放所有的视频
-	playAllVideo();
-	
+	playAllVideo();	
 	//图片弹出层
 	showImage();
+	//富文本实例链接图片链接
+	Rdiv();
 });
-
-
 Ext.app.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
     initComponent : function(){
         if(!this.store.baseParams){

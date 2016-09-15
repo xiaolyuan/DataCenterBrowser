@@ -331,11 +331,12 @@ function playAllVideo(){
 	for(idx=1; idx <= player_num; idx ++){
 		flowplayer('player_' + idx, 'js/flowplayer/flowplayer-3.2.18.swf',{
 			clip:{
-				autoPlay:false,}, plugins: {
+				autoPlay:false,//是否自动播放
+				autoBuffering:true//是否开启缓冲	
+			}, plugins: {
 					 fontColor: '#ffffff',
 					  backgroundColor: '#aedaff', //背景颜色
 				}
-			
 		});
 	}			
 }
@@ -392,8 +393,8 @@ function ImageDataItemProc(id,data){
 //调用图片弹出层控件
 function showImage(){
 	var idx = 0;
-	for (idx = 1; idx <=imageid ; idx++) {
-		var viewer = new Viewer(document.getElementById('img_'+idx));	
+	for (idx = 1; idx <=imageid; idx++) {
+		var viewer = new Viewer(document.getElementById('img_'+idx));		
 	}	
 }
 //时间
@@ -428,7 +429,6 @@ function FloatDataItemProc(id, data){
 	 html+= "<span  class=\"float\"><span >"+data.value+"</span>"+data.unit+"</span>"+remarkHtml+"<br/>";
 	 return html;
 }
-
 //三维模型
 function D3DataItemProc(id, data){
 var html="";
@@ -450,16 +450,16 @@ $.each(data.link, function(idx, item){
 	items=item.split(";");	
 	for (var i = 1; i <items.length; i++) {		 
 		  html += "<div id='3D_"+i+"' class='marginleft'>"
-		  		+ "<embed  src=\"\D3DServlet?D3Did="+items[i]+"\" width=\"80%\" height=\"400\" "
+		  		+ "<embed style='position: relative;z-index:-1;'  src=\"\D3DServlet?D3Did="+items[i]+"\" width=\"80%\" height=\"400\" "
 				+" type=\"application/x-cortona\" vrml_background_color=\"#f7f7f9\">" 
-				+"</div>"
-				
+				+"</div>"		
 	}
 	// vrml_background_color=\"#f7f7f9\" vrml_dashboard=\"true\"     contextmenu=\"true\" vrml_splashscreen=\"false\"  pluginspage=\"http://www.cortona3d.com/cortona\"
 });
 		return html;
 }	
 //富文本
+var  ad;
 function RichTextDataItemProc(id,data){
 	var html="";
 	var remarks="";
@@ -471,19 +471,98 @@ function RichTextDataItemProc(id,data){
 		 remarkHtml= "<span id='rich_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span class='span'>" +
 				"(备注:" +items+")</span></span>";
 			}
-	    RemarkList(remarkHtml,remarks);
-    html+=remarkHtml+"</br></br><span class='marginleft'>"
-    	+""+data.Text
-    	+"</span>";
+	    RemarkList(remarkHtml,remarks);//relative
+    html+=remarkHtml+"</br></br><span class='marginleft' id='Rdiv'>"
+    	+""+data.Text+"<ol id='oid' class='Link_Class'>"
+    	+"</ol><span id='imaID' class='image_Class'></span></span>";
+    $("#Rdiv").html(data.Text); 
 	return html;
 }
+//操作富文本实例链接和图片链接
+var arr = new Array();
+var id;
+function Rdiv(){
+	$('.image_link').mouseenter(function(){
+		id=$(this).attr('id');	
+		if(arr[id]!=id){	
+			arr[id]=id;	
+	  ImageLink(id);
+	  showImage();
+		}
+		//cursor:not-allowed;pointer-events: none;
+		 $(".image_link").css("cursor","not-allowed");
+    $(".imageclass_link_"+id+"").css("display","block");
+	$("#imaID").css("display","block");
+	$("ol").css("display","none");
+	});
+	$(".case_link").mouseenter(function(){
+		id=$(this).attr('id');	
+		if(arr[id]!=id){
+			arr[id]=id;	
+		showLink(id);	
+		}
+		var rel=$(this).attr("rel");
+		rels=rel.split(",");
+	if(rels.length!=1){
+		$("ol").css("display","block");
+		$("#Rid_"+id+"").css("display","block");
+	}else{
+	$("#Rid_"+id+"").css("display","none");
+	$("#imaID").css("display","none");
+	}
+	});
+	$("ol").mouseover(function(){
+		//showLink();
+		$(".imageclass_link_"+id+"").css("display","none");
+		$("#Rid_"+id+"").css("display","block");
+	});
+	$("ol").mouseleave(function(){
+		$("#Rid_"+id+"").css("display","none");
+		$("ol").css("display","none");
+		$(".imageclass_link_"+id+"").css("display","none");	
+	});
+	$("#imaID").mouseleave(function(){
+		$(".imageclass_link_"+id+"").css("display","none");
+		$("#Rid_"+id+"").css("display","none");
+		$("#imaID").css("display","none");
+	});
+	$(".case_link").mouseleave(function(){
+		$(".imageclass_link_"+id+"").css("display","none");
 
+	});
+}
+//获取实例链接
+function showLink(id){
+		 var item=$('#'+id).attr("rel");	
+		 var items=new Array();
+			items=item.split(",");
+			if(items.length==1){
+				$("ol").css("display","none");
+				$('.linksclass').css("display","none");
+			}
+				for (var i = 0; i < items.length; i++) {
+					html="<div class='linksclass' id='Rid_"+id+"'><a href='http://123.57.52.25:8080/DataCenterBrowser/ie.html?nodeid=case/id/"+items[i]+"'>"+items[i]+"</a></div>";
+					$('#'+id).attr("href","http://123.57.52.25:8080/DataCenterBrowser/ie.html?nodeid=case/id/"+items[0]+"");
+					$(html).appendTo("ol");		
+								
+					}}
+//获取图片链接
+function ImageLink(id){
+		 var itema=$('#'+id).attr('rel');
+		 var items=new Array();
+			itemss=itema.split(",");
+				for (var i = 0; i < itemss.length; i++) {
+					imageid+=1;		
+					html="<img  id='img_"+imageid+"' data-original='FileServlet?imageid="+itemss[i]+"' class='imageclass_link_"+id+"' style='width:285px;height:200px;margin-left:30px; border:1px solid #BFD4DA;margin-bottom:20px;float:left;'  src='FileServlet?imageid="+itemss[i]+"'/ >";		
+//					$('#'+id).attr("href","javascript:void(0);");
+//					$('#'+id).attr("onclick",")");
+					$(html).appendTo("#imaID");
+				}}
 //链接
 function UrlDataItemProc(id, data){
 	var html="";
 	if (data.remark != null && data.remark != "")
 	html = "&nbsp&nbsp&nbsp&nbsp<span style=''>(备注：" + data.remark + ")</span>";
-	// html += "<a href='http://www.baidu.com'>www.baidu.com</a>";
 	$.each(data.links, function(idx, item){
 		var items=new Array();
 		items=item.split(",");

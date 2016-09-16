@@ -67,20 +67,20 @@ body {
 		    // prepare camera
 		    var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.01, FAR = 20000;
 		    camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
-		    camera.position.set(-0.09, 0.05, -0.08);
-		    camera.lookAt(new THREE.Vector3(0,0,0));
+		    //camera.position.set(-0.09, 0.05, -0.08);
+		    //camera.lookAt(new THREE.Vector3(0,0,0));
 		    
 // 			camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.01, 1e10);
 // 			camera.position.z = 6;
 
 			controls = new THREE.OrbitControls(camera);
-			controls.target = new THREE.Vector3(0, 0, 0);
+			//controls.target = new THREE.Vector3(0, 0, 0);
 			controls.maxDistance = 3000;
 			//controls.rotateSpeed = 5.0;
 			//controls.zoomSpeed = 5;
 
-			controls.noZoom = false;
-			controls.noPan = false;
+			controls.enableZoom = true;
+			controls.enablePan  = true;
 
 			scene = new THREE.Scene();
 			scene.add(camera);
@@ -95,9 +95,43 @@ body {
 			camera.add(dirLight);
 			camera.add(dirLight.target);
 
+			// object
+			var maxx, maxy, maxz, minx, miny, minz;
 			var loader = new THREE.VRMLLoader();
 			loader.load("/DataCenterBrowser/D3DServlet?D3Did=" + GetRequest(), function(object) {
 				scene.add(object);
+				var minx, miny, minz, maxx, maxy, maxz;
+				var scalea;
+				object.traverse(function (child){
+					if (child instanceof THREE.Mesh && child.geometry.name !== "Background" && child.geometry.boundingSphere){
+						if (!minx || (child.geometry.boundingSphere.center.x - child.geometry.boundingSphere.radius < minx))
+							minx = child.geometry.boundingSphere.center.x - child.geometry.boundingSphere.radius;
+						if (!maxx || (child.geometry.boundingSphere.center.x + child.geometry.boundingSphere.radius > maxx))
+							maxx = child.geometry.boundingSphere.center.x + child.geometry.boundingSphere.radius;
+						if (!miny || (child.geometry.boundingSphere.center.y - child.geometry.boundingSphere.radius < miny))
+							miny = child.geometry.boundingSphere.center.y - child.geometry.boundingSphere.radius;
+						if (!maxy || (child.geometry.boundingSphere.center.y + child.geometry.boundingSphere.radius > maxy))
+							maxy = child.geometry.boundingSphere.center.y + child.geometry.boundingSphere.radius;
+						if (!minz || (child.geometry.boundingSphere.center.z - child.geometry.boundingSphere.radius < minz))
+							minz = child.geometry.boundingSphere.center.z - child.geometry.boundingSphere.radius;
+						if (!maxz || (child.geometry.boundingSphere.center.z + child.geometry.boundingSphere.radius > maxz))
+							maxz = child.geometry.boundingSphere.center.z + child.geometry.boundingSphere.radius;
+					}
+					else if (child.scale && child.scale.x != 1){
+						scalea = child.scale.x;
+					}
+				})
+				minx *= scalea;
+				miny *= scalea;
+				minz *= scalea;
+				maxx *= scalea;
+				maxy *= scalea;
+				maxz *= scalea;
+				var maxsize = Math.max(maxx - minx, maxy - miny, maxz - minz);
+			    camera.position.set((maxx + minx)/2 - 0.5 * maxsize, (maxy + miny)/2 + 0.5 * maxsize, (maxz + minz)/2 + 0.5 * maxsize);
+			    var center = new THREE.Vector3((maxx + minx)/2,(maxy + miny)/2,(maxz + minz)/2);
+			    camera.lookAt(center);
+			    controls.target = center;
 			});
 
 			// renderer
@@ -137,8 +171,6 @@ body {
 
 			controls.update();
 			renderer.render(scene, camera);
-
-
 		}
 	</script>
 

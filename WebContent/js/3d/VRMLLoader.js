@@ -683,6 +683,7 @@ THREE.VRMLLoader.prototype = {
 					var radius = 2e4;
 
 					var skyGeometry = new THREE.SphereGeometry( radius, segments, segments );
+					skyGeometry.name = "Background";
 					var skyMaterial = new THREE.MeshBasicMaterial( { fog: false, side: THREE.BackSide } );
 
 					if ( data.skyColor.length > 1 ) {
@@ -938,7 +939,7 @@ THREE.VRMLLoader.prototype = {
 								console.warn( defineKey + ' is not defined.' );
 
 							} else {
-								parent.material = defines[ defineKey ];
+								parent.material = defines[ defineKey ].clone();
 								//var object = defines[ defineKey ].clone();
 							}
 

@@ -4,7 +4,6 @@
 	cursor:pointer;
 	white-space:nowrap;
 }
-
 .lineheight{
 	line-height:1.7;
 	/* border:1px solid #BFD4DA;*/	
@@ -19,7 +18,7 @@
 	margin-left:20px;
 	/* border:1px solid #BFD4DA; */
 	line-height:1.7;
-	/* margin-bottom:20px; */
+	margin-bottom:20px;
 }
 .vode{
 	width:285px;
@@ -27,6 +26,31 @@
 	margin-left:30px;
     border:1px solid #BFD4DA;
 	margin-bottom:20px
+}
+.image_Class{
+	position: absolute;
+	z-index:1;
+	padding: 10px; 
+	display:none; 
+	background: rgb(255, 255, 255);
+	
+}
+
+.Link_Class{
+	position: relative;
+	z-index:1;
+	 border: 1px solid #9CDCEB;
+	 padding: 10px;
+	 display:none;
+	 background: rgb(255, 255, 255);
+}
+#imageclass_link{
+	width:285px;
+	height:200px;
+	margin-left:30px;
+    border:1px solid #BFD4DA;
+	margin-bottom:20px;
+	float:left;
 }
 #whleft{
 	width:285px;

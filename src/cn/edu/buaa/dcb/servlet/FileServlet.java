@@ -1,18 +1,11 @@
 package cn.edu.buaa.dcb.servlet;
-
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.StringUtils;
-
 import cn.edu.buaa.dcb.service.Utility;
 
 /**
@@ -60,9 +53,8 @@ public class FileServlet extends HttpServlet {
 		
 	
 		 //String fPath="D:\\cw_upload\\file\\";	
-		for (int i = 0; i < arrayfileName.length; i++) {
-			//if(imgTypeStr.equals(".jpg")||imgTypeStr.equals(".bmp")||imgTypeStr.equals(".gif")||imgTypeStr.equals(".jpeg")||imgTypeStr.equals(".png")||imgTypeStr.equals(".swf")){
-			String filePath=Utility.getParameter("image")+arrayfileName[i];
+		for (int i = 0; i < arrayfileName.length; i++) {	
+		String filePath=Utility.getParameter("image")+arrayfileName[i];
 			
 		System.out.println(filePath);
 		

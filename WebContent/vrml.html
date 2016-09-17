@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>vrml loader</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<style>
+body {
+	font-family: Monospace;
+	background-color: #000;
+	color: #fff;
+	margin: 0px;
+	overflow: hidden;
+}
+
+#info {
+	color: #fff;
+	position: absolute;
+	top: 10px;
+	width: 100%;
+	text-align: center;
+	z-index: 100;
+	display: block;
+}
+
+#info a, .button {
+	color: #f00;
+	font-weight: bold;
+	text-decoration: underline;
+	cursor: pointer
+}
+</style>
+</head>
+
+<body>
+	<script type="text/javascript" src="js/3d/three.min.js"></script>
+	<script type="text/javascript" src="js/3d/OrbitControls.js"></script>
+	<script type="text/javascript" src="js/3d/VRMLLoader.js"></script>
+	<script>
+    function GetRequest()
+    {
+    	var strHref = window.location.href;
+    	var id = strHref.indexOf("#");
+    	if (id > 0)
+    		return strHref.substr(id + 1);
+    	else
+    		return "";
+    }
+	</script>
+	<script>
+		var container;
+
+		var camera, controls, scene, renderer;
+
+		var cross;
+
+		init();
+		animate();
+
+		function init() {
+
+
+		    var SCREEN_WIDTH = window.innerWidth,
+		        SCREEN_HEIGHT = window.innerHeight;
+
+		    // prepare camera
+		    var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.01, FAR = 20000;
+		    camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
+		    //camera.position.set(-0.09, 0.05, -0.08);
+		    //camera.lookAt(new THREE.Vector3(0,0,0));
+		    
+// 			camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.01, 1e10);
+// 			camera.position.z = 6;
+
+			controls = new THREE.OrbitControls(camera);
+			//controls.target = new THREE.Vector3(0, 0, 0);
+			controls.maxDistance = 3000;
+			//controls.rotateSpeed = 5.0;
+			//controls.zoomSpeed = 5;
+
+			controls.enableZoom = true;
+			controls.enablePan  = true;
+
+			scene = new THREE.Scene();
+			scene.add(camera);
+			scene.add( new THREE.AmbientLight(0x333333) );
+			
+			// light
+			
+			var dirLight = new THREE.DirectionalLight(0xffffff);
+			
+			dirLight.position.set(200, 200, 1000).normalize();
+
+			camera.add(dirLight);
+			camera.add(dirLight.target);
+
+			// object
+			var maxx, maxy, maxz, minx, miny, minz;
+			var loader = new THREE.VRMLLoader();
+			loader.load("/DataCenterBrowser/D3DServlet?D3Did=" + GetRequest(), function(object) {
+				scene.add(object);
+				var minx, miny, minz, maxx, maxy, maxz;
+				var scalea;
+				object.traverse(function (child){
+					if (child instanceof THREE.Mesh){
+						if (child.geometry.name !== "Background"){
+							if (child.geometry.boundingSphere){
+								if (!minx || (child.geometry.boundingSphere.center.x - child.geometry.boundingSphere.radius < minx))
+									minx = child.geometry.boundingSphere.center.x - child.geometry.boundingSphere.radius;
+								if (!maxx || (child.geometry.boundingSphere.center.x + child.geometry.boundingSphere.radius > maxx))
+									maxx = child.geometry.boundingSphere.center.x + child.geometry.boundingSphere.radius;
+								if (!miny || (child.geometry.boundingSphere.center.y - child.geometry.boundingSphere.radius < miny))
+									miny = child.geometry.boundingSphere.center.y - child.geometry.boundingSphere.radius;
+								if (!maxy || (child.geometry.boundingSphere.center.y + child.geometry.boundingSphere.radius > maxy))
+									maxy = child.geometry.boundingSphere.center.y + child.geometry.boundingSphere.radius;
+								if (!minz || (child.geometry.boundingSphere.center.z - child.geometry.boundingSphere.radius < minz))
+									minz = child.geometry.boundingSphere.center.z - child.geometry.boundingSphere.radius;
+								if (!maxz || (child.geometry.boundingSphere.center.z + child.geometry.boundingSphere.radius > maxz))
+									maxz = child.geometry.boundingSphere.center.z + child.geometry.boundingSphere.radius;
+							}
+						}
+						else{
+							child.material.color.setRGB( 1, 1, 1 );
+						}
+					} 
+					else if (child.scale && child.scale.x != 1){
+						scalea = child.scale.x;
+					}
+				})
+				minx *= scalea;
+				miny *= scalea;
+				minz *= scalea;
+				maxx *= scalea;
+				maxy *= scalea;
+				maxz *= scalea;
+				var maxsize = Math.max(maxx - minx, maxy - miny, maxz - minz);
+			    camera.position.set((maxx + minx)/2 - 0.5 * maxsize, (maxy + miny)/2 + 0.5 * maxsize, (maxz + minz)/2 + 0.5 * maxsize);
+			    var center = new THREE.Vector3((maxx + minx)/2,(maxy + miny)/2,(maxz + minz)/2);
+			    //camera.lookAt(center);
+			    controls.target = center;
+			});
+
+			// renderer
+
+			renderer = new THREE.WebGLRenderer({
+				antialias : true
+			});
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.shadowMapEnabled = true;
+			renderer.shadowMapSoft = true;
+			
+			container = document.createElement('div');
+			document.body.appendChild(container);
+			container.appendChild(renderer.domElement);
+
+			//
+
+			window.addEventListener('resize', onWindowResize, false);
+
+		}
+
+		function onWindowResize() {
+
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize(window.innerWidth, window.innerHeight);
+
+			controls.handleResize();
+
+		}
+
+		function animate() {
+
+			requestAnimationFrame(animate);
+
+			controls.update();
+			renderer.render(scene, camera);
+		}
+	</script>
+
+</body>
+</html>

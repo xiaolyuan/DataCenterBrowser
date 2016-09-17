@@ -450,9 +450,11 @@ $.each(data.link, function(idx, item){
 	items=item.split(";");	
 	for (var i = 1; i <items.length; i++) {		 
 		  html += "<div id='3D_"+i+"' class='marginleft'>"
-		  		+ "<embed style='position: relative;z-index:-1;'  src=\"\D3DServlet?D3Did="+items[i]+"\" width=\"80%\" height=\"400\" "
-				+" type=\"application/x-cortona\" vrml_background_color=\"#f7f7f9\">" 
-				+"</div>"		
+		  		//+ "<embed  src=\"\D3DServlet?D3Did="+items[i]+"\" width=\"80%\" height=\"400\" "
+				//+" type=\"application/x-cortona\" vrml_background_color=\"#f7f7f9\">"
+		  		+ "<iframe src=\"" + "/DataCenterBrowser/vrml.html#" + items[i] + "\" width=\"98%\" height=\"400\" frameborder=\"no\" border=\"0\" scrolling=\"no\"></iframe>"
+				+ "</div>";
+				
 	}
 	// vrml_background_color=\"#f7f7f9\" vrml_dashboard=\"true\"     contextmenu=\"true\" vrml_splashscreen=\"false\"  pluginspage=\"http://www.cortona3d.com/cortona\"
 });

@@ -452,7 +452,7 @@ $.each(data.link, function(idx, item){
 		  html += "<div id='3D_"+i+"' class='marginleft'>"
 		  		//+ "<embed  src=\"\D3DServlet?D3Did="+items[i]+"\" width=\"80%\" height=\"400\" "
 				//+" type=\"application/x-cortona\" vrml_background_color=\"#f7f7f9\">"
-		  		+ "<iframe src=\"" + "/DataCenterBrowser/vrml.html#" + items[i] + "\" width=\"98%\" height=\"400\" frameborder=\"no\" border=\"0\" ></iframe>"
+		  		+ "<iframe src=\"" + "/DataCenterBrowser/vrml.html#" + items[i] + "\" width=\"98%\" height=\"400\" frameborder=\"no\" border=\"0\" scrolling=\"no\"></iframe>"
 				+ "</div>";
 				
 	}

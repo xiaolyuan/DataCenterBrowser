@@ -408,31 +408,32 @@ Ext.onReady(function(){
             tooltip: 'Collapse All',
             handler: function(){ api.root.collapse(true); },
             scope: this
-        },{
-        	iconCls:'icon-config',
-        	tooltip:"隐藏空属性项",
-        	handler:function(){	
-        		$("#data-1235").css("display","none");
-        		$("#data-1236").css("display","none");
-        	    $("#data-1237").css("display","none");
-        	    $("#data-1238").css("display","none");	
-        	    $("#data-1239").css("display","none");
-        	    $("#data-1240").css("display","none");
-        	},
-        	scope:this
-        },{
-        	iconCls:'icon-config',
-        	tooltip:"显示空属性项",
-        	handler:function(){
-        		$("#data-1235").css("display","block");
-        	    $("#data-1236").css("display","block");
-        	    $("#data-1237").css("display","block");
-        	    $("#data-1238").css("display","block");	
-        	    $("#data-1239").css("display","block");
-        	    $("#data-1240").css("display","block");
-        	},
-        	scope:this
         }
+//        ,{
+//        	//iconCls:'icon-config',
+//        	tooltip:"隐藏空属性项",
+//        	handler:function(){	
+//        		$("#data-1235").css("display","none");
+//        		$("#data-1236").css("display","none");
+//        	    $("#data-1237").css("display","none");
+//        	    $("#data-1238").css("display","none");	
+//        	    $("#data-1239").css("display","none");
+//        	    $("#data-1240").css("display","none");
+//        	},
+//        	scope:this
+//        },{
+//        	//iconCls:'icon-config',
+//        	tooltip:"显示空属性项",
+//        	handler:function(){
+//        		$("#data-1235").css("display","block");
+//        	    $("#data-1236").css("display","block");
+//        	    $("#data-1237").css("display","block");
+//        	    $("#data-1238").css("display","block");	
+//        	    $("#data-1239").css("display","block");
+//        	    $("#data-1240").css("display","block");
+//        	},
+//        	scope:this
+//        }
 		 ]
 	});
     viewport.doLayout();  
@@ -450,6 +451,8 @@ Ext.onReady(function(){
 	showImage();
 	//富文本实例链接图片链接
 	Rdiv();
+	ss();
+	filea();
 });
 Ext.app.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
     initComponent : function(){

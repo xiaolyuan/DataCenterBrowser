@@ -38,6 +38,7 @@ public class DataItemService {
 //		String url = "http://202.112.140.210/CooperateWeb/case/name/数据库分类1&数据库1/case/name/实例分类1&实例1";
 		System.out.println(url);
 		String jsonString = httpClientUtils.getDoGetURL(url, charset);	
+		System.out.println(jsonString);
 		BaseDataItem[] baseDataItems = gson.fromJson(jsonString, BaseDataItem[].class); 
 		List<DataItem> dataItems = new ArrayList<DataItem>();
 		generateDataItem(dataItems, baseDataItems);	

@@ -282,21 +282,44 @@ function FileDataItemProc(id, data){
 	if (data.remark != null && data.remark != ""){
 		 remarkLength(data.remark);
 		 items = cleanRemark(rema);
-		 remarks=data.remark;
-		remarkHtml= "<span id='file_"+id+"'>&nbsp;&nbsp;&nbsp;&nbsp;<span class='span'>" +
+		remarks=data.remark;
+		 //<script id='editorA' style='left:0;top:30%; z-index:100;' type='text/plain'>
+		remarkHtml= "<span id='file_"+id+"' class='aaspan'>&nbsp;&nbsp;&nbsp;&nbsp;<span class='span'>" +
 		"(备注:" +items+")</span></span>";
 	}
+	//remarks="<script id='editorA' type='text/plain' style=''>"+data.remark+"</script>";
+	//alert(remarks);
+	
 	 RemarkList(remarkHtml,remarks);
 	html=remarkHtml;
+	//html+="<script id='editorA' style='display:none;' type='text/plain'>"+remarks+"</script>";
 	$.each(data.filePaths, function(idx, item){
 		var filePath=item.split(";");
 		for (var i = 1; i < filePath.length; i++) {
 		html += "<p class='lineheight'><a  href='FilenewServlet?id="+filePath[i]+"'>"
 		     +filePath[i]+"</a></p>";
 		}
-	});
-	
+	});	
 	return html;
+}
+function filea(){	
+	//position: absolute;
+//	$(".aaspan").click(function(){
+//		$("#editorA").attr("style", 'padding:10px;position:relative;width:200px');
+//		$("#editorA").attr("z-index",9999);
+//		
+//	});
+
+		/*var uea = UE.getEditor('editorA', {	
+			toolbars: [],
+		    autoHeightEnabled: false,
+		    scaleEnabled:true,
+		    elementPathEnabled:false, //左下角显示元素路径
+		    autoFloatEnabled: false,
+		    initialFrameWidth:750, //初始化编辑器宽度,默认1000
+		    initialFrameHeight:400, //初始化编辑器高度,默认320
+		    wordCount:false, //是否开启字数统计
+		});	*/
 }
 var player_num = 0;
 //視頻
@@ -453,15 +476,13 @@ $.each(data.link, function(idx, item){
 		  		//+ "<embed  src=\"\D3DServlet?D3Did="+items[i]+"\" width=\"80%\" height=\"400\" "
 				//+" type=\"application/x-cortona\" vrml_background_color=\"#f7f7f9\">"
 		  		+ "<iframe src=\"" + "/DataCenterBrowser/vrml.html#" + items[i] + "\" width=\"98%\" height=\"400\" frameborder=\"no\" border=\"0\" scrolling=\"no\"></iframe>"
-				+ "</div>";
-				
+				+ "</div>";		
 	}
-	// vrml_background_color=\"#f7f7f9\" vrml_dashboard=\"true\"     contextmenu=\"true\" vrml_splashscreen=\"false\"  pluginspage=\"http://www.cortona3d.com/cortona\"
 });
 		return html;
 }	
 //富文本
-var  ad;
+var  RichText=0;
 function RichTextDataItemProc(id,data){
 	var html="";
 	var remarks="";
@@ -474,16 +495,38 @@ function RichTextDataItemProc(id,data){
 				"(备注:" +items+")</span></span>";
 			}
 	    RemarkList(remarkHtml,remarks);//relative
-    html+=remarkHtml+"</br></br><span class='marginleft' id='Rdiv'>"
+	    //</script>
+   		
+    html+=remarkHtml+"</br></br><span style='color:red;' class='marginleft' id='Rdiv'><script id='editor_"+RichText+"' class='uedt' type='text/plain'>"
     	+""+data.Text+"<ol id='oid' class='Link_Class'>"
-    	+"</ol><span id='imaID' class='image_Class'></span></span>";
-    $("#Rdiv").html(data.Text); 
+    	+"</ol><span id='imaID' class='image_Class'></script></span></span>";
+    //html+="<span>"+editor.getPlainTxt()+"</span>";
+//    html+="<span class='marginleft' >"
+//    	+""+data.Text+"<ol id='oid' class='Link_Class'>"
+//    	+"</ol><span id='imaID' class='image_Class'></span></span>";  
+    $(".uedt").html(data.Text); 
+    RichText+=1;
 	return html;
+}
+function ss(){
+	var idx=0;	
+	for (idx = 0; idx <RichText; idx++) {
+		//alert(idx);		
+		var a=new UE.ui.Editor({readonly:true});
+	var ue = UE.getEditor('editor_'+idx+'', {
+	   toolbars: [],
+	    autoHeightEnabled: true,
+	    autoFloatEnabled: true,
+	    wordCount:false, //是否开启字数统计
+	    elementPathEnabled:false //左下角显示元素路径
+	});	
+}
+	
 }
 //操作富文本实例链接和图片链接
 var arr = new Array();
 var id;
-function Rdiv(){
+function Rdiv(){	
 	$('.image_link').mouseenter(function(){
 		id=$(this).attr('id');	
 		if(arr[id]!=id){	
@@ -545,8 +588,7 @@ function showLink(id){
 				for (var i = 0; i < items.length; i++) {
 					html="<div class='linksclass' id='Rid_"+id+"'><a href='http://123.57.52.25:8080/DataCenterBrowser/ie.html?nodeid=case/id/"+items[i]+"'>"+items[i]+"</a></div>";
 					$('#'+id).attr("href","http://123.57.52.25:8080/DataCenterBrowser/ie.html?nodeid=case/id/"+items[0]+"");
-					$(html).appendTo("ol");		
-								
+					$(html).appendTo("ol");										
 					}}
 //获取图片链接
 function ImageLink(id){
@@ -641,9 +683,9 @@ function TableDataItemProc(id, data){
 		+"          </thead>"
 		+"          <tbody>"
 		+ tbody
-		+"          </tbody>"
+		+"          </tbody>"		
 		+"        </table>"
-		+"   </div>"
+		+"   </div>"	
 		+"<div>"
 		+"<span class=\"x-menu-text\" style=\"cursor:pointer; float: right;\" onclick='showmore(this)' id=\""+ tableid + "_btn\">"
 		+"显示更多...</span>"
@@ -696,11 +738,20 @@ function RemarkList(remarkHtml,remarks){
 			  closeBtn:1,
 			  title: ['备注', 'font-size:18px;'],
 			  skin: 'layui-layer-lan', //加上边框
-			  area: ['450px', '400px'], //宽高
-			  shadeClose: true,
-			  border : [10 , 0.3 , '#000', true],
-			  offset : ['0' , '60%','200px'],
-			  content: remarks,
+			 // skin: 'layui-layer-rim',
+		      area: ['500px', '500px'], //宽高
+		      icon:0, //图标
+			// area:'auto',
+			//  shadeClose: true,
+			 // locked : false,
+			 // border : [10 , 0.3 , '#000', true],
+			//  offset : ['0' , '60%','200px'],	
+		      moveType:1,
+			  shade:0,
+			  maxmin: true,
+			  moveOut: true,
+			  //<div id='editorAA' type='text/plain'>"+remarks
+			  content:remarks,
 			});
 	 });
 	 $(document).on('mouseenter','#'+$(remarkHtml).attr('id'),function(){
@@ -710,6 +761,13 @@ function RemarkList(remarkHtml,remarks){
 		 });
 	 });
 }
+//function filea(){	
+//		var ue = UE.getEditor('editorAA', {
+//			toolbars: [],
+//		    autoHeightEnabled: true,
+//		    autoFloatEnabled: true
+//		});	
+//}
 //替换备注中的<p></p>标签（换行）
 function cleanRemark(remark)
 {

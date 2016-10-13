@@ -314,7 +314,7 @@ pre code i,pre code i b,pre code i em{
     cursor:pointer;
 }
  div .body-wrap{
-	border:1px solid #ECF0F0;
+	/* border:1px solid #ECF0F0; */
 }
 .expandable td.micon:hover a {
     background: transparent url(member-hover.gif) no-repeat 5px 6px;

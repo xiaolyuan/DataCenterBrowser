@@ -496,32 +496,14 @@ function RichTextDataItemProc(id,data){
 			}
 	    RemarkList(remarkHtml,remarks);//relative
 	    //</script>
-   		
-    html+=remarkHtml+"</br></br><span style='color:red;' class='marginleft' id='Rdiv'><script id='editor_"+RichText+"' class='uedt' type='text/plain'>"
-    	+""+data.Text+"<ol id='oid' class='Link_Class'>"
-    	+"</ol><span id='imaID' class='image_Class'></script></span></span>";
+    
     //html+="<span>"+editor.getPlainTxt()+"</span>";
-//    html+="<span class='marginleft' >"
-//    	+""+data.Text+"<ol id='oid' class='Link_Class'>"
-//    	+"</ol><span id='imaID' class='image_Class'></span></span>";  
-    $(".uedt").html(data.Text); 
+     html=remarkHtml+'<div id="fu"><span class="marginleft" id="Rdiv" >'
+   	+data.Text+'<ol id="oid" class="Link_Class">'
+    	+'</ol><span id="imaID" class="image_Class"></span></span><div>';      
+   $("#Rdiv").html(data.Text); 
     RichText+=1;
 	return html;
-}
-function ss(){
-	var idx=0;	
-	for (idx = 0; idx <RichText; idx++) {
-		//alert(idx);		
-		var a=new UE.ui.Editor({readonly:true});
-	var ue = UE.getEditor('editor_'+idx+'', {
-	   toolbars: [],
-	    autoHeightEnabled: true,
-	    autoFloatEnabled: true,
-	    wordCount:false, //是否开启字数统计
-	    elementPathEnabled:false //左下角显示元素路径
-	});	
-}
-	
 }
 //操作富文本实例链接和图片链接
 var arr = new Array();
@@ -739,7 +721,7 @@ function RemarkList(remarkHtml,remarks){
 			  title: ['备注', 'font-size:18px;'],
 			  skin: 'layui-layer-lan', //加上边框
 			 // skin: 'layui-layer-rim',
-		      area: ['500px', '500px'], //宽高
+		      area: ['600px', '600px'], //宽高
 		      icon:0, //图标
 			// area:'auto',
 			//  shadeClose: true,
@@ -751,7 +733,7 @@ function RemarkList(remarkHtml,remarks){
 			  maxmin: true,
 			  moveOut: true,
 			  //<div id='editorAA' type='text/plain'>"+remarks
-			  content:remarks,
+			  content:'<div id="fu">'+remarks+'</div>',
 			});
 	 });
 	 $(document).on('mouseenter','#'+$(remarkHtml).attr('id'),function(){
@@ -761,13 +743,6 @@ function RemarkList(remarkHtml,remarks){
 		 });
 	 });
 }
-//function filea(){	
-//		var ue = UE.getEditor('editorAA', {
-//			toolbars: [],
-//		    autoHeightEnabled: true,
-//		    autoFloatEnabled: true
-//		});	
-//}
 //替换备注中的<p></p>标签（换行）
 function cleanRemark(remark)
 {

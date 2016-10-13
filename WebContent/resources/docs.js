@@ -451,8 +451,6 @@ Ext.onReady(function(){
 	showImage();
 	//富文本实例链接图片链接
 	Rdiv();
-	ss();
-	filea();
 });
 Ext.app.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
     initComponent : function(){
